@@ -1,30 +1,24 @@
+import { Button } from '@/components/button'
+import { SafeAreaView } from '@/components/safe-area-view'
+import ErrorIcon from '@/components/svgs/error-icon'
 import { Text } from '@/components/text'
-import { Link, Stack } from 'expo-router'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 export default function NotFoundScreen() {
 	return (
-		<>
-			<Stack.Screen options={{ title: 'Oops!' }} />
-			<View style={styles.container}>
-				<Text variant="titleLarge">This screen doesn't exist.</Text>
-				<Link href="/" style={styles.link}>
-					<Text variant="bodyMediumBold">Go to home screen!</Text>
-				</Link>
+		<SafeAreaView backgroundColor={'secondary'}>
+			<View className="bg-secondary w-full h-full px-6 flex flex-col-reverse justify-between">
+				<Button text="Try again" className="bg-brand-black mb-6" />
+				<View className="flex flex-col items-center h-full justify-center">
+					<View className="p-6 bg-primary rounded-full mb-[30px]">
+						<ErrorIcon />
+					</View>
+					<Text variant="titleLarge" className="mb-3">
+						Something went wrong
+					</Text>
+					<Text>Something went wrong, please try it again.</Text>
+				</View>
 			</View>
-		</>
+		</SafeAreaView>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 20,
-	},
-	link: {
-		marginTop: 15,
-		paddingVertical: 15,
-	},
-})
