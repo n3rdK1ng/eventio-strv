@@ -1,4 +1,4 @@
-import UserIcon from '@/components/svgs/user-icon'
+import { UserIcon } from '@/components/svgs/user-icon'
 import { Tabs } from 'expo-router'
 import React from 'react'
 

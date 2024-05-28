@@ -1,6 +1,6 @@
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-const SvgComponent = (props: SvgProps) => (
+export const EventioLogo = (props: SvgProps) => (
 	<Svg width={32} height={32} fill="none" {...props}>
 		<Path
 			fill="#323C46"
@@ -10,4 +10,3 @@ const SvgComponent = (props: SvgProps) => (
 		/>
 	</Svg>
 )
-export default SvgComponent

@@ -1,6 +1,6 @@
 import { Button } from '@/components/button'
 import { SafeAreaView } from '@/components/safe-area-view'
-import ErrorIcon from '@/components/svgs/error-icon'
+import { ErrorIcon } from '@/components/svgs/error-icon'
 import { Text } from '@/components/text'
 import { View } from 'react-native'
 

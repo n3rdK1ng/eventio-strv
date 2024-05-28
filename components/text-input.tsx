@@ -8,8 +8,8 @@ import {
 	View,
 } from 'react-native'
 
-import EyeCrossedIcon from './svgs/eye-crossed-icon'
-import EyeIcon from './svgs/eye-icon'
+import { EyeCrossedIcon } from './svgs/eye-crossed-icon'
+import { EyeIcon } from './svgs/eye-icon'
 
 type TextInput = TextInputProps & {
 	placeholder: string

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-function CalendarIcon(props: SvgProps) {
+export const CalendarIcon = (props: SvgProps) => {
 	return (
 		<Svg width={24} height={24} viewBox="0 0 24 24" fill="none" {...props}>
 			<Path
@@ -13,5 +13,3 @@ function CalendarIcon(props: SvgProps) {
 		</Svg>
 	)
 }
-
-export default CalendarIcon
