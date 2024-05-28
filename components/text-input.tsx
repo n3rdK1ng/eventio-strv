@@ -10,20 +10,24 @@ import {
 
 import { EyeCrossedIcon } from './svgs/eye-crossed-icon'
 import { EyeIcon } from './svgs/eye-icon'
+import { Text } from './text'
 
 type TextInput = TextInputProps & {
 	placeholder: string
 	isPassword?: boolean
-	className?: string
+	error?: string
+	focused?: boolean
 }
 
 export const TextInput = ({
 	placeholder,
 	isPassword,
+	error,
 	className,
 	...props
 }: TextInput) => {
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+	const [isFocused, setIsFocused] = useState(false)
 
 	return (
 		<View className="relative w-full">
@@ -31,8 +35,13 @@ export const TextInput = ({
 				placeholder={placeholder}
 				placeholderTextColor={'#A7A7B9'}
 				secureTextEntry={isPassword && !isPasswordVisible}
+				onFocus={() => setIsFocused(true)}
+				onBlur={() => setIsFocused(false)}
 				className={cn(
 					'w-full border-b border-tertiary pt-0.5 pb-[13px] relative',
+					isFocused && 'border-brand-black',
+					error && 'border-error',
+					error !== ' ' && 'mb-2',
 					className,
 				)}
 				style={{
@@ -46,6 +55,11 @@ export const TextInput = ({
 				}}
 				{...props}
 			/>
+			{error !== ' ' && (
+				<Text variant="bodyXSmall" className="text-error mt-2">
+					{error}
+				</Text>
+			)}
 			{isPassword && (
 				<TouchableOpacity
 					onPress={() => setIsPasswordVisible(prevState => !prevState)}
