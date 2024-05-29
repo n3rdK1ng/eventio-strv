@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/context/auth'
 import {
 	Inter_100Thin,
 	Inter_200ExtraLight,
@@ -9,6 +10,7 @@ import {
 	Inter_800ExtraBold,
 	Inter_900Black,
 } from '@expo-google-fonts/inter'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -43,14 +45,26 @@ export default function RootLayout() {
 		return null
 	}
 
+	const queryClient = new QueryClient()
+
 	return (
-		<Stack>
-			<Stack.Screen
-				name="(auth)"
-				options={{ headerShown: false, navigationBarHidden: true }}
-			/>
-			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-			<Stack.Screen name="+not-found" options={{ headerShown: false }} />
-		</Stack>
+		<QueryClientProvider client={queryClient}>
+			<AuthProvider>
+				<Stack>
+					<Stack.Screen
+						name="(auth)"
+						options={{ headerShown: false, navigationBarHidden: true }}
+					/>
+					<Stack.Screen
+						name="(tabs)"
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen name="index" options={{ headerShown: false }} />
+					<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+				</Stack>
+			</AuthProvider>
+		</QueryClientProvider>
 	)
 }
