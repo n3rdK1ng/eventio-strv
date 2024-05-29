@@ -1,8 +1,9 @@
-import { ExternalLink } from '@/components/external-link'
-import ParallaxScrollView from '@/components/parallax-scroll-view'
-import { Text } from '@/components/text'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Image, Platform, StyleSheet, View } from 'react-native'
+
+import { ExternalLink } from '#/components/external-link'
+import ParallaxScrollView from '#/components/parallax-scroll-view'
+import { Text } from '#/components/text'
 
 export default function TabTwoScreen() {
 	return (

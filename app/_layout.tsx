@@ -1,4 +1,3 @@
-import { AuthProvider } from '@/context/auth'
 import {
 	Inter_100Thin,
 	Inter_200ExtraLight,
@@ -16,6 +15,8 @@ import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 import 'react-native-reanimated'
+
+import { AuthProvider } from '#/context/auth'
 
 import '../global.css'
 

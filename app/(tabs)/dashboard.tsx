@@ -1,8 +1,9 @@
-import { Button } from '@/components/button'
-import { EventCard } from '@/components/event-card'
-import { cn } from '@/utils/misc'
 import { useState } from 'react'
 import { View } from 'react-native'
+
+import { Button } from '#/components/button'
+import { EventCard } from '#/components/event-card'
+import { cn } from '#/utils/misc'
 
 export default function DashboardRoute() {
 	const [selectedFilter, setSelectedFilter] = useState<

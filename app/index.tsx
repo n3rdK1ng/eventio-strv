@@ -1,8 +1,9 @@
-import { LoadingIndicator } from '@/components/loading-indicator'
-import { useAuthContext } from '@/context/auth'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { View } from 'react-native'
+
+import { LoadingIndicator } from '#/components/loading-indicator'
+import { useAuthContext } from '#/context/auth'
 
 export default function Index() {
 	const { user, isLoaded } = useAuthContext()

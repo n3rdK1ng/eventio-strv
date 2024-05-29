@@ -1,9 +1,10 @@
-import { cn } from '@/utils/misc'
 import {
 	TouchableOpacity,
 	type TouchableOpacityProps,
 	View,
 } from 'react-native'
+
+import { cn } from '#/utils/misc'
 
 import { Button } from './button'
 import { UserIcon } from './svgs/user-icon'

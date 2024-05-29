@@ -1,5 +1,6 @@
-import { cn } from '@/utils/misc'
 import { TouchableOpacity, type TouchableOpacityProps } from 'react-native'
+
+import { cn } from '#/utils/misc'
 
 import { type TText, Text } from './text'
 

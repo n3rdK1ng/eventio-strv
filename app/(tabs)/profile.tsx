@@ -1,7 +1,8 @@
-import { Button } from '@/components/button'
-import { useAuthContext } from '@/context/auth'
 import { useRouter } from 'expo-router'
 import { View } from 'react-native'
+
+import { Button } from '#/components/button'
+import { useAuthContext } from '#/context/auth'
 
 export default function ProfileRoute() {
 	const { user, destroySession } = useAuthContext()
