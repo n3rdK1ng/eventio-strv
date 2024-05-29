@@ -87,12 +87,12 @@ export default function SignInRoute() {
 
 	return (
 		<>
-			<View className="w-full flex flex-col items-center">
-				<EventioLogo className="mt-14 mb-10" />
+			<View className="flex w-full flex-col items-center">
+				<EventioLogo className="mb-10 mt-14" />
 				<Text className="mb-4" variant="titleLarge">
 					Sign in to Eventio.
 				</Text>
-				<Text className="text-secondary mb-14">Enter your details below.</Text>
+				<Text className="mb-14 text-secondary">Enter your details below.</Text>
 				<Controller
 					control={control}
 					rules={{
@@ -131,14 +131,14 @@ export default function SignInRoute() {
 					name="password"
 				/>
 			</View>
-			<View className="w-full flex flex-col items-center">
+			<View className="flex w-full flex-col items-center">
 				<Button
 					text={!loading ? 'SIGN IN' : 'LOADING...'}
-					className={cn('bg-brand-green mb-3', loading && 'opacity-50')}
+					className={cn('mb-3 bg-brand-green', loading && 'opacity-50')}
 					disabled={loading}
 					onPress={handleSubmit(onSubmit)}
 				/>
-				<View className="mb-6 inline-flex gap-1 flex-row">
+				<View className="mb-6 inline-flex flex-row gap-1">
 					<Text className="text-secondary">Don't have an account?</Text>
 					<TouchableOpacity onPress={() => router.replace('sign-up')}>
 						<Text className="text-brand-green">Sign up</Text>

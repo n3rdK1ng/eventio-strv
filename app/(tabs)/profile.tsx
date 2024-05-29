@@ -9,7 +9,7 @@ export default function ProfileRoute() {
 	const router = useRouter()
 
 	return (
-		<View className="w-full h-full flex justify-center flex-col items-center px-6 gap-4">
+		<View className="flex h-full w-full flex-col items-center justify-center gap-4 px-6">
 			<Button
 				onPress={() => {
 					console.log(user)

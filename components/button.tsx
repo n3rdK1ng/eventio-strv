@@ -22,9 +22,9 @@ export const Button = ({
 }: TButton) => {
 	return (
 		<TouchableOpacity
-			className={cn(className, 'flex justify-center items-center', {
-				'w-full py-[18px] rounded-lg': variant === 'extraLarge',
-				'py-[7px] px-[22px] rounded-[4px]': variant === 'large',
+			className={cn(className, 'flex items-center justify-center', {
+				'w-full rounded-lg py-[18px]': variant === 'extraLarge',
+				'rounded-[4px] px-[22px] py-[7px]': variant === 'large',
 			})}
 			{...props}
 		>

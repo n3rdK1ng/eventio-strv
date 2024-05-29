@@ -39,7 +39,7 @@ export const TextInput = ({
 				onFocus={() => setIsFocused(true)}
 				onBlur={() => setIsFocused(false)}
 				className={cn(
-					'w-full border-b border-tertiary pt-0.5 pb-[13px] relative',
+					'relative w-full border-b border-tertiary pb-[13px] pt-0.5',
 					isFocused && 'border-brand-black',
 					error && 'border-error',
 					error !== ' ' && 'mb-2',
@@ -57,7 +57,7 @@ export const TextInput = ({
 				{...props}
 			/>
 			{error !== ' ' && (
-				<Text variant="bodyXSmall" className="text-error mt-2">
+				<Text variant="bodyXSmall" className="mt-2 text-error">
 					{error}
 				</Text>
 			)}

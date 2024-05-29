@@ -8,10 +8,10 @@ import { Text } from '#/components/text'
 export default function NotFoundScreen() {
 	return (
 		<SafeAreaView backgroundColor={'secondary'}>
-			<View className="bg-secondary w-full h-full px-6 flex flex-col-reverse justify-between">
-				<Button text="Try again" className="bg-brand-black mb-6" />
-				<View className="flex flex-col items-center h-full justify-center">
-					<View className="p-6 bg-primary rounded-full mb-[30px]">
+			<View className="flex h-full w-full flex-col-reverse justify-between bg-secondary px-6">
+				<Button text="Try again" className="mb-6 bg-brand-black" />
+				<View className="flex h-full flex-col items-center justify-center">
+					<View className="mb-[30px] rounded-full bg-primary p-6">
 						<ErrorIcon />
 					</View>
 					<Text variant="titleLarge" className="mb-3">
