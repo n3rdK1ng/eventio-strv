@@ -27,10 +27,10 @@ export const EventCard = ({ variant, ...props }: TEventCard) => {
 				shadowRadius: 4,
 				elevation: 4,
 			}}
-			className="w-full p-5 bg-secondary rounded-lg shadow-event"
+			className="shadow-event w-full rounded-lg bg-secondary p-5"
 			{...props}
 		>
-			<View className="flex flex-row justify-between grow-0 items-end">
+			<View className="flex grow-0 flex-row items-end justify-between">
 				<View className="flex flex-col">
 					<Text variant="bodyXSmall" className="mb-1 text-tertiary">
 						April 4, 2017 – 2:17 PM

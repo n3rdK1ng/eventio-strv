@@ -11,14 +11,14 @@ export default function DashboardRoute() {
 	>('all')
 
 	return (
-		<View className="w-full h-full flex flex-col items-center bg-primary px-4">
-			<View className="flex flex-row justify-center w-full bg-primary gap-2 mt-8 px-2">
+		<View className="flex h-full w-full flex-col items-center bg-primary px-4">
+			<View className="mt-8 flex w-full flex-row justify-center gap-2 bg-primary px-2">
 				<Button
 					text="all"
 					variant="large"
 					textVariant="overlineSmall"
 					className={cn(
-						'w-1/3 h-8',
+						'h-8 w-1/3',
 						selectedFilter === 'all' ? 'bg-brand-black' : 'bg-secondary',
 					)}
 					textColor={selectedFilter === 'all' ? 'primary-white' : 'tertiary'}
@@ -29,7 +29,7 @@ export default function DashboardRoute() {
 					variant="large"
 					textVariant="overlineSmall"
 					className={cn(
-						'w-1/3 h-8',
+						'h-8 w-1/3',
 						selectedFilter === 'future' ? 'bg-brand-black' : 'bg-secondary',
 					)}
 					textColor={selectedFilter === 'future' ? 'primary-white' : 'tertiary'}
@@ -40,7 +40,7 @@ export default function DashboardRoute() {
 					variant="large"
 					textVariant="overlineSmall"
 					className={cn(
-						'w-1/3 h-8',
+						'h-8 w-1/3',
 						selectedFilter === 'past' ? 'bg-brand-black' : 'bg-secondary',
 					)}
 					textColor={selectedFilter === 'past' ? 'primary-white' : 'tertiary'}

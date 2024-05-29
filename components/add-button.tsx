@@ -15,7 +15,7 @@ export const AddButton = (props: TouchableOpacityProps) => {
 				shadowRadius: 9,
 				elevation: 3,
 			}}
-			className="w-14 h-14 bg-brand-black rounded-full justify-center items-center"
+			className="h-14 w-14 items-center justify-center rounded-full bg-brand-black"
 			{...props}
 		>
 			<PlusIcon className="text-primary-white" />

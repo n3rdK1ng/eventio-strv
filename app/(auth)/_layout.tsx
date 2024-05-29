@@ -6,7 +6,7 @@ import { SafeAreaView } from '#/components/safe-area-view'
 export default function AuthLayout() {
 	return (
 		<SafeAreaView backgroundColor="secondary">
-			<View className="w-full px-6 h-full flex flex-col justify-between items-center bg-secondary">
+			<View className="flex h-full w-full flex-col items-center justify-between bg-secondary px-6">
 				<Slot />
 			</View>
 		</SafeAreaView>
