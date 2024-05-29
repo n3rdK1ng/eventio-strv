@@ -13,6 +13,7 @@ export type Text = TextProps & {
 		| 'bodyMedium'
 		| 'bodyMediumBold'
 		| 'bodySmall'
+		| 'bodySmallMedium'
 		| 'bodyXSmall'
 		| 'overlineSmall'
 }
@@ -27,6 +28,7 @@ export const Text = ({ style, variant = 'bodyMedium', ...rest }: Text) => {
 				variant === 'bodyLarge' ? styles.bodyLarge : undefined,
 				variant === 'bodyMediumBold' ? styles.bodyMediumBold : undefined,
 				variant === 'bodySmall' ? styles.bodySmall : undefined,
+				variant === 'bodySmallMedium' ? styles.bodySmallMedium : undefined,
 				variant === 'bodyXSmall' ? styles.bodyXSmall : undefined,
 				variant === 'overlineSmall' ? styles.overlineSmall : undefined,
 				style,
@@ -86,6 +88,15 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		lineHeight: 18,
 		fontWeight: '400',
+		fontFamily: Platform.select({
+			android: 'Inter_400Regular',
+			ios: 'Inter-Regular',
+		}),
+	},
+	bodySmallMedium: {
+		fontSize: 14,
+		lineHeight: 18,
+		fontWeight: '500',
 		fontFamily: Platform.select({
 			android: 'Inter_400Regular',
 			ios: 'Inter-Regular',

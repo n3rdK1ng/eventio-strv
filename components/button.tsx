@@ -5,12 +5,16 @@ import { Text } from './text'
 
 type Button = TouchableOpacityProps & {
 	text: string
+	textVariant?: Text['variant']
 	variant?: 'large' | 'extraLarge'
+	textColor?: 'primary-white' | 'secondary' | 'tertiary'
 	className?: string
 }
 
 export const Button = ({
 	text,
+	textVariant = 'bodyMediumBold',
+	textColor = 'primary-white',
 	variant = 'extraLarge',
 	className,
 	...props
@@ -23,7 +27,14 @@ export const Button = ({
 			})}
 			{...props}
 		>
-			<Text className="text-primary-white" variant="bodyMediumBold">
+			<Text
+				className={cn({
+					'text-primary-white': textColor === 'primary-white',
+					'text-secondary': textColor === 'secondary',
+					'text-tertiary': textColor === 'tertiary',
+				})}
+				variant={textVariant}
+			>
 				{text}
 			</Text>
 		</TouchableOpacity>
