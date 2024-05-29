@@ -1,6 +1,3 @@
-import { headers } from '@/utils/api'
-import { TUser } from '@/utils/api/types'
-import { tokenCache } from '@/utils/cache'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import {
@@ -11,6 +8,10 @@ import {
 	useMemo,
 	useState,
 } from 'react'
+
+import { headers } from '#/utils/api'
+import { TUser } from '#/utils/api/types'
+import { tokenCache } from '#/utils/cache'
 
 export const accessTokenKey = 'accessToken'
 export const refreshTokenKey = 'refreshToken'

@@ -1,11 +1,3 @@
-import { Button } from '@/components/button'
-import { EventioLogo } from '@/components/svgs/eventio-logo'
-import { Text } from '@/components/text'
-import { TextInput } from '@/components/text-input'
-import { useAuthContext } from '@/context/auth'
-import { headers } from '@/utils/api'
-import { TUser } from '@/utils/api/types'
-import { cn } from '@/utils/misc'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useRouter } from 'expo-router'
@@ -13,6 +5,15 @@ import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { TouchableOpacity, View } from 'react-native'
 import { z } from 'zod'
+
+import { Button } from '#/components/button'
+import { EventioLogo } from '#/components/svgs/eventio-logo'
+import { Text } from '#/components/text'
+import { TextInput } from '#/components/text-input'
+import { useAuthContext } from '#/context/auth'
+import { headers } from '#/utils/api'
+import { TUser } from '#/utils/api/types'
+import { cn } from '#/utils/misc'
 
 const schema = z.object({
 	email: z

@@ -1,6 +1,7 @@
-import { SafeAreaView } from '@/components/safe-area-view'
 import { Slot } from 'expo-router'
 import { View } from 'react-native'
+
+import { SafeAreaView } from '#/components/safe-area-view'
 
 export default function AuthLayout() {
 	return (

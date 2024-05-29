@@ -1,5 +1,6 @@
-import { PlusIcon } from '@/components/svgs/plus-icon'
 import { TouchableOpacity, type TouchableOpacityProps } from 'react-native'
+
+import { PlusIcon } from '#/components/svgs/plus-icon'
 
 export const AddButton = (props: TouchableOpacityProps) => {
 	return (

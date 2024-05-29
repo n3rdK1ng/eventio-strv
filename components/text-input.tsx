@@ -1,4 +1,3 @@
-import { cn } from '@/utils/misc'
 import { useState } from 'react'
 import {
 	Platform,
@@ -7,6 +6,8 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native'
+
+import { cn } from '#/utils/misc'
 
 import { EyeCrossedIcon } from './svgs/eye-crossed-icon'
 import { EyeIcon } from './svgs/eye-icon'
