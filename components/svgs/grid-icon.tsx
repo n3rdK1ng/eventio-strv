@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-function GridIcon(props: SvgProps) {
+export const GridIcon = (props: SvgProps) => {
 	return (
 		<Svg width={24} height={24} viewBox="0 0 24 24" fill="none" {...props}>
 			<Path
@@ -11,5 +11,3 @@ function GridIcon(props: SvgProps) {
 		</Svg>
 	)
 }
-
-export default GridIcon

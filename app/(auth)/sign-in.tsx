@@ -1,5 +1,5 @@
 import { Button } from '@/components/button'
-import EventioLogo from '@/components/svgs/eventio-logo'
+import { EventioLogo } from '@/components/svgs/eventio-logo'
 import { Text } from '@/components/text'
 import { TextInput } from '@/components/text-input'
 import { useRouter } from 'expo-router'

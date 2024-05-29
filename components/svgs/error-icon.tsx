@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-const ErrorIcon = (props: SvgProps) => (
+export const ErrorIcon = (props: SvgProps) => (
 	<Svg width={32} height={32} viewBox="0 0 32 32" fill="none" {...props}>
 		<Path
 			fill="#323C46"
@@ -9,4 +9,3 @@ const ErrorIcon = (props: SvgProps) => (
 		/>
 	</Svg>
 )
-export default ErrorIcon
