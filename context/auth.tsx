@@ -1,5 +1,5 @@
 import { headers } from '@/utils/api'
-import { User } from '@/utils/api/types'
+import { TUser } from '@/utils/api/types'
 import { tokenCache } from '@/utils/cache'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
@@ -15,26 +15,26 @@ import {
 export const accessTokenKey = 'accessToken'
 export const refreshTokenKey = 'refreshToken'
 
-type AuthContext = {
-	user: User | null | undefined
+type TAuthContext = {
+	user: TUser | null | undefined
 	isLoaded: boolean
 	isLoggingOut: boolean
 	setSession: (
 		accessToken: string,
 		refreshToken: string,
-		user: User,
+		user: TUser,
 	) => Promise<void>
 	destroySession: () => Promise<void>
 	refreshSession: () => Promise<void>
 }
 
-type DecodedJWT = {
-	user: User
+type TDecodedJWT = {
+	user: TUser
 	iat: number
 	exp: number
 }
 
-export const AuthContext = createContext<AuthContext>({
+export const AuthContext = createContext<TAuthContext>({
 	user: undefined,
 	isLoaded: false,
 	isLoggingOut: false,
@@ -50,17 +50,17 @@ export const AuthContext = createContext<AuthContext>({
 })
 
 export const decodeToken = async (token: string) => {
-	const payload: DecodedJWT = await jwtDecode(token)
+	const payload: TDecodedJWT = await jwtDecode(token)
 	return payload
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [isLoggingOut, setIsLoggingOut] = useState(false)
-	const [user, setUser] = useState<User | null>()
+	const [user, setUser] = useState<TUser | null>()
 
 	const setSession = useCallback(
-		async (accessToken: string, refreshToken: string, user: User) => {
+		async (accessToken: string, refreshToken: string, user: TUser) => {
 			await tokenCache.saveToken(accessTokenKey, accessToken)
 			await tokenCache.saveToken(refreshTokenKey, refreshToken)
 			setUser(user)

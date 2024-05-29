@@ -5,7 +5,7 @@ import {
 	Text as TextRN,
 } from 'react-native'
 
-export type Text = TextProps & {
+export type TText = TextProps & {
 	variant?:
 		| 'titleLarge'
 		| 'titleMedium'
@@ -18,7 +18,7 @@ export type Text = TextProps & {
 		| 'overlineSmall'
 }
 
-export const Text = ({ style, variant = 'bodyMedium', ...rest }: Text) => {
+export const Text = ({ style, variant = 'bodyMedium', ...rest }: TText) => {
 	return (
 		<TextRN
 			style={[

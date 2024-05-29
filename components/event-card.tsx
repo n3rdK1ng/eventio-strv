@@ -9,11 +9,11 @@ import { Button } from './button'
 import { UserIcon } from './svgs/user-icon'
 import { Text } from './text'
 
-type EventCard = TouchableOpacityProps & {
+type TEventCard = TouchableOpacityProps & {
 	variant: 'small' | 'large'
 }
 
-export const EventCard = ({ variant, ...props }: EventCard) => {
+export const EventCard = ({ variant, ...props }: TEventCard) => {
 	return (
 		<TouchableOpacity
 			style={{

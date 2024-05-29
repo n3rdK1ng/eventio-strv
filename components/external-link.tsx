@@ -3,9 +3,9 @@ import { openBrowserAsync } from 'expo-web-browser'
 import { type ComponentProps } from 'react'
 import { Platform } from 'react-native'
 
-type ExternalLink = Omit<ComponentProps<typeof Link>, 'href'> & { href: string }
+type TExternalLink = Omit<ComponentProps<typeof Link>, 'href'> & { href: string }
 
-export const ExternalLink = ({ href, ...rest }: ExternalLink) => {
+export const ExternalLink = ({ href, ...rest }: TExternalLink) => {
 	return (
 		<Link
 			target="_blank"

@@ -12,7 +12,7 @@ import { EyeCrossedIcon } from './svgs/eye-crossed-icon'
 import { EyeIcon } from './svgs/eye-icon'
 import { Text } from './text'
 
-type TextInput = TextInputProps & {
+type TTextInput = TextInputProps & {
 	placeholder: string
 	isPassword?: boolean
 	error?: string
@@ -25,7 +25,7 @@ export const TextInput = ({
 	error,
 	className,
 	...props
-}: TextInput) => {
+}: TTextInput) => {
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 	const [isFocused, setIsFocused] = useState(false)
 
