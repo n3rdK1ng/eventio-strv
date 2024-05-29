@@ -1,11 +1,11 @@
 import { cn } from '@/utils/misc'
 import { TouchableOpacity, type TouchableOpacityProps } from 'react-native'
 
-import { Text } from './text'
+import { type TText, Text } from './text'
 
-type Button = TouchableOpacityProps & {
+type TButton = TouchableOpacityProps & {
 	text: string
-	textVariant?: Text['variant']
+	textVariant?: TText['variant']
 	variant?: 'large' | 'extraLarge'
 	textColor?: 'primary-white' | 'secondary' | 'tertiary'
 	className?: string
@@ -18,7 +18,7 @@ export const Button = ({
 	variant = 'extraLarge',
 	className,
 	...props
-}: Button) => {
+}: TButton) => {
 	return (
 		<TouchableOpacity
 			className={cn(className, 'flex justify-center items-center', {

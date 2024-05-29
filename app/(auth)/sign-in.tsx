@@ -4,7 +4,7 @@ import { Text } from '@/components/text'
 import { TextInput } from '@/components/text-input'
 import { useAuthContext } from '@/context/auth'
 import { headers } from '@/utils/api'
-import { User } from '@/utils/api/types'
+import { TUser } from '@/utils/api/types'
 import { cn } from '@/utils/misc'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
@@ -55,7 +55,7 @@ export default function SignInRoute() {
 			await setSession(
 				response.headers['authorization'],
 				response.headers['refresh-token'],
-				response.data as User,
+				response.data as TUser,
 			)
 
 			router.replace('/dashboard')

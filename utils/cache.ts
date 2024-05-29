@@ -10,6 +10,7 @@ export const getToken = async (key: string) => {
 		return value
 	} catch (e) {
 		await SecureStore.deleteItemAsync(key)
+		throw e
 	}
 }
 

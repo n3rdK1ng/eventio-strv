@@ -13,13 +13,15 @@ const styles = StyleSheet.create({
 	},
 })
 
+type TSafeAreaView = ComponentProps<typeof SafeAreaViewRN> & {
+	children: React.ReactNode
+	backgroundColor: 'primary' | 'secondary'
+}
+
 export const SafeAreaView = ({
 	children,
 	backgroundColor = 'primary',
-}: {
-	children: React.ReactNode
-	backgroundColor: 'primary' | 'secondary'
-} & ComponentProps<typeof SafeAreaViewRN>) => {
+}: TSafeAreaView) => {
 	const headerHeight = useHeaderHeight()
 	const backgroundColorValue =
 		backgroundColor === 'primary' ? '#F9F9FB' : 'white'
