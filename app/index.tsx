@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import { useEffect } from 'react'
+import { useCallback } from 'react'
 import { View } from 'react-native'
 
 import { LoadingIndicator } from '#/components/loading-indicator'
@@ -9,25 +9,19 @@ export default function Index() {
 	const { user, isLoaded } = useAuthContext()
 	const router = useRouter()
 
-	useEffect(() => {
+	const onLayoutRootView = useCallback(() => {
 		if (isLoaded) {
-			setTimeout(() => {
-				if (user) {
-					router.push('/dashboard')
-				} else {
-					router.push('/sign-in')
-				}
-			}, 0)
+			if (user) {
+				router.push('/dashboard')
+			} else {
+				router.push('/sign-in')
+			}
 		}
 	}, [isLoaded, user, router])
 
 	if (!isLoaded) {
-		return (
-			<View className="h-full w-full flex-col items-center justify-center">
-				<LoadingIndicator />
-			</View>
-		)
+		return <LoadingIndicator />
 	}
 
-	return null
+	return <View onLayout={onLayoutRootView} />
 }
