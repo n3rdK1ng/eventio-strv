@@ -9,10 +9,13 @@ import {
 	Inter_800ExtraBold,
 	Inter_900Black,
 } from '@expo-google-fonts/inter'
+import { config } from '@gluestack-ui/config'
+import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFonts } from 'expo-font'
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
 import 'react-native-reanimated'
 
@@ -24,6 +27,7 @@ import '../global.css'
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
+	const router = useRouter()
 	const [loaded] = useFonts({
 		Inter_100Thin,
 		Inter_200ExtraLight,
@@ -49,23 +53,38 @@ export default function RootLayout() {
 	const queryClient = new QueryClient()
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<AuthProvider>
-				<Stack>
-					<Stack.Screen
-						name="(auth)"
-						options={{ headerShown: false, navigationBarHidden: true }}
-					/>
-					<Stack.Screen
-						name="(tabs)"
-						options={{
-							headerShown: false,
+		<GluestackUIProvider config={config}>
+			<QueryClientProvider client={queryClient}>
+				<AuthProvider>
+					<StatusBar style="dark" />
+					<Stack
+						screenOptions={{
+							headerShadowVisible: false,
+							headerStyle: {
+								backgroundColor: '#F9F9FB',
+							},
 						}}
-					/>
-					<Stack.Screen name="index" options={{ headerShown: false }} />
-					<Stack.Screen name="+not-found" options={{ headerShown: false }} />
-				</Stack>
-			</AuthProvider>
-		</QueryClientProvider>
+					>
+						<Stack.Screen
+							name="(auth)"
+							options={{
+								headerShown: false,
+								navigationBarHidden: true,
+								gestureEnabled: false,
+							}}
+						/>
+						<Stack.Screen
+							name="(tabs)"
+							options={{
+								headerShown: false,
+								gestureEnabled: false,
+							}}
+						/>
+						<Stack.Screen name="index" options={{ headerShown: false }} />
+						<Stack.Screen name="+not-found" options={{ headerShown: false }} />
+					</Stack>
+				</AuthProvider>
+			</QueryClientProvider>
+		</GluestackUIProvider>
 	)
 }
