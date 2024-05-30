@@ -17,8 +17,11 @@ import { Stack, useRouter } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
+import { TouchableOpacity } from 'react-native'
 import 'react-native-reanimated'
 
+import { ArrowIcon } from '#/components/svgs/arrow-icon'
+import { Text } from '#/components/text'
 import { AuthProvider } from '#/context/auth'
 
 import '../global.css'
@@ -78,6 +81,27 @@ export default function RootLayout() {
 							options={{
 								headerShown: false,
 								gestureEnabled: false,
+							}}
+						/>
+						<Stack.Screen
+							name="[event]"
+							options={{
+								headerTitle: () => (
+									<Text variant="bodyLarge">Event Details</Text>
+								),
+								headerLeft: () => {
+									return (
+										<TouchableOpacity
+											onPress={() => router.back()}
+											className="pl-0"
+										>
+											<ArrowIcon className="text-primary" />
+										</TouchableOpacity>
+									)
+								},
+								headerTitleAlign: 'center',
+								headerShown: true,
+								headerBackVisible: false,
 							}}
 						/>
 						<Stack.Screen name="index" options={{ headerShown: false }} />
