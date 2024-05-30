@@ -66,7 +66,7 @@ export const TextInput = ({
 					onPress={() => setIsPasswordVisible(prevState => !prevState)}
 					className="absolute right-0 top-0"
 				>
-					{isPasswordVisible ? <EyeIcon /> : <EyeCrossedIcon />}
+					{!isPasswordVisible ? <EyeIcon /> : <EyeCrossedIcon />}
 				</TouchableOpacity>
 			)}
 		</View>
