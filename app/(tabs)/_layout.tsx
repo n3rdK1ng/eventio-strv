@@ -1,14 +1,18 @@
 import { Tabs, useRouter } from 'expo-router'
-import { Platform } from 'react-native'
+import { Alert, Platform, TouchableOpacity } from 'react-native'
 
+import { ActionSheetAndroid } from '#/components/action-sheet-android'
+import { ActionSheetIos } from '#/components/action-sheet-ios'
 import { AddButton } from '#/components/add-button'
 import { SelectCardsVariant } from '#/components/select-cards-variant'
 import { CalendarIcon } from '#/components/svgs/calendar-icon'
 import { UserIcon } from '#/components/svgs/user-icon'
 import { Text } from '#/components/text'
+import { useAuthContext } from '#/context/auth'
 
 export default function TabLayout() {
 	const router = useRouter()
+	const { destroySession } = useAuthContext()
 
 	return (
 		<Tabs
@@ -55,7 +59,45 @@ export default function TabLayout() {
 				name="profile"
 				options={{
 					tabBarIcon: ({ color }) => <UserIcon color={color} />,
-					headerTitle: 'Profile',
+					headerTitle: () => (
+						<TouchableOpacity>
+							<Text variant="bodyLarge">Profile</Text>
+						</TouchableOpacity>
+					),
+					headerTitleAlign: 'center',
+					headerShown: true,
+					headerRight: () => (
+						<>
+							{Platform.OS === 'ios' ? (
+								<ActionSheetIos
+									title="Settings"
+									options={['Edit Profile', 'Logout']}
+									onOptionPress={(index: number) => {
+										if (index === 0) {
+											Alert.alert('Missing design and API endpoint 😿')
+										} else if (index === 1) {
+											destroySession()
+											router.replace('/sign-in')
+										}
+									}}
+								/>
+							) : (
+								<ActionSheetAndroid
+									title="Settings"
+									destructiveText="Logout"
+									editText="Edit profile"
+									className=" text-primary"
+									editFunction={() =>
+										Alert.alert('Missing design and API endpoint 😿')
+									}
+									destructiveFunction={() => {
+										destroySession()
+										router.replace('/sign-in')
+									}}
+								/>
+							)}
+						</>
+					),
 				}}
 			/>
 		</Tabs>

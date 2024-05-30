@@ -16,6 +16,9 @@ export type TText = TextProps & {
 		| 'bodySmallMedium'
 		| 'bodyXSmall'
 		| 'overlineSmall'
+		| 'profileInitials'
+		| 'actionSheetFootnote'
+		| 'actionSheetTitle'
 }
 
 export const Text = ({ style, variant = 'bodyMedium', ...rest }: TText) => {
@@ -31,6 +34,12 @@ export const Text = ({ style, variant = 'bodyMedium', ...rest }: TText) => {
 				variant === 'bodySmallMedium' ? styles.bodySmallMedium : undefined,
 				variant === 'bodyXSmall' ? styles.bodyXSmall : undefined,
 				variant === 'overlineSmall' ? styles.overlineSmall : undefined,
+				variant === 'profileInitials' ? styles.profileInitials : undefined,
+				variant === 'actionSheetFootnote'
+					? styles.actionSheetFootnote
+					: undefined,
+				variant === 'actionSheetTitle' ? styles.actionSheetTitle : undefined,
+
 				style,
 			]}
 			{...rest}
@@ -121,5 +130,32 @@ const styles = StyleSheet.create({
 		}),
 		letterSpacing: 0.48,
 		textTransform: 'uppercase',
+	},
+	profileInitials: {
+		fontSize: 32,
+		lineHeight: 40,
+		fontWeight: '600',
+		fontFamily: Platform.select({
+			android: 'Inter_600SemiBold',
+			ios: 'Inter-SemiBold',
+		}),
+		textTransform: 'uppercase',
+	},
+	actionSheetFootnote: {
+		fontSize: 13,
+		lineHeight: 18,
+		fontWeight: '400',
+		fontFamily: Platform.select({
+			android: 'Inter_400Regular',
+		}),
+	},
+	actionSheetTitle: {
+		fontSize: 20,
+		lineHeight: 25,
+		fontWeight: '400',
+		fontFamily: Platform.select({
+			android: 'Inter_400Regular',
+		}),
+		letterSpacing: 0.38,
 	},
 })
