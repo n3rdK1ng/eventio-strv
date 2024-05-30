@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import {
 	createContext,
@@ -9,7 +8,7 @@ import {
 	useState,
 } from 'react'
 
-import { headers } from '#/utils/api'
+import { api } from '#/utils/api'
 import { TUser } from '#/utils/api/types'
 import { tokenCache } from '#/utils/cache'
 
@@ -96,13 +95,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			return await destroySession()
 		}
 
-		const response = await axios.post(
-			process.env.EXPO_PUBLIC_API_URL + 'auth/native',
-			{ refreshToken },
-			{
-				headers,
-			},
-		)
+		const response = await api.post('auth/native', { refreshToken })
 
 		// Refresh token is invalid or expired
 		if (response.status !== 200) return await destroySession()
