@@ -17,6 +17,8 @@ module.exports = {
 			backgroundColor: {
 				primary: '#F9F9FB',
 				secondary: '#FFFFFF',
+				disabled: "#E4E4EA",
+				error: '#F40000',
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
