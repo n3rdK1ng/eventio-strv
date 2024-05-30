@@ -1,20 +1,39 @@
-import {
-	TouchableOpacity,
-	type TouchableOpacityProps,
-	View,
-} from 'react-native'
+import { useRouter } from 'expo-router'
+import { TouchableOpacity, View } from 'react-native'
 
+import { useAuthContext } from '#/context/auth'
+import { TEvent } from '#/utils/api/types'
 import { cn } from '#/utils/misc'
 
-import { Button } from './button'
+import { EventButton } from './event-button'
 import { UserIcon } from './svgs/user-icon'
 import { Text } from './text'
 
-type TEventCard = TouchableOpacityProps & {
+type TEventCard = {
 	variant: 'small' | 'large'
+	event: TEvent
+	disabled?: boolean
 }
 
-export const EventCard = ({ variant, ...props }: TEventCard) => {
+export const EventCard = ({ variant, event, disabled }: TEventCard) => {
+	const { user } = useAuthContext()
+	const router = useRouter()
+
+	if (!user) {
+		router.replace('/sign-in')
+		return null
+	}
+
+	const handleButtonVariant = () => {
+		if (event.attendees.some(attendee => attendee.id === user.id)) {
+			return 'leave'
+		} else if (event.ownerId === user.id) {
+			return 'edit'
+		} else {
+			return 'join'
+		}
+	}
+
 	return (
 		<TouchableOpacity
 			style={{
@@ -25,33 +44,40 @@ export const EventCard = ({ variant, ...props }: TEventCard) => {
 				},
 				shadowOpacity: 0.1,
 				shadowRadius: 4,
-				elevation: 4,
+				elevation: 3,
 			}}
-			className="shadow-event w-full rounded-lg bg-secondary p-5"
-			{...props}
+			className="shadow-event mx-4 my-2 rounded-lg bg-secondary p-5"
+			onPress={() => router.push('/' + event.id)}
+			disabled={disabled}
 		>
 			<View className="flex grow-0 flex-row items-end justify-between">
 				<View className="flex flex-col">
 					<Text variant="bodyXSmall" className="mb-1 text-tertiary">
-						April 4, 2017 – 2:17 PM
+						{new Date(event.startsAt).toLocaleString('en-US', {
+							month: 'short',
+							day: 'numeric',
+							year: 'numeric',
+							hour: 'numeric',
+							minute: 'numeric',
+						})}
 					</Text>
 					<Text variant="bodyMedium" className="mb-1 text-primary">
-						How to get angry
+						{event.title}
 					</Text>
 					<Text
 						variant="bodySmall"
 						className={cn('text-secondary', variant === 'large' && 'mb-6')}
 					>
-						Tom Watts
+						{event.owner.firstName} {event.owner.lastName}
 					</Text>
 					{variant === 'large' && (
 						<Text variant="bodyMedium" className="mb-8 text-primary">
-							I will show you how to get angry in a second
+							{event.description}
 						</Text>
 					)}
 				</View>
 				{variant === 'small' && (
-					<Button text="JOIN" variant="large" className="bg-tertiary px-8" />
+					<EventButton eventId={event.id} variant={handleButtonVariant()} />
 				)}
 			</View>
 			<View
@@ -65,16 +91,14 @@ export const EventCard = ({ variant, ...props }: TEventCard) => {
 					<View className="flex flex-row items-center gap-2.5">
 						<UserIcon className="text-secondary" />
 						<Text variant="bodySmallMedium" className="text-secondary">
-							9 of 31
+							{event.attendees.length} of {event.capacity}
 						</Text>
 					</View>
 				)}
 				{variant === 'large' && (
-					<Button text="JOIN" variant="large" className="bg-tertiary px-8" />
+					<EventButton eventId={event.id} variant={handleButtonVariant()} />
 				)}
 			</View>
 		</TouchableOpacity>
 	)
 }
-
-//TODO: remove hard coded values
