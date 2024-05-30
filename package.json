@@ -19,8 +19,12 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo/vector-icons": "^14.0.0",
+    "@gluestack-style/react": "^1.0.56",
+    "@gluestack-ui/config": "^1.1.18",
+    "@gluestack-ui/themed": "^1.1.26",
     "@hookform/resolvers": "^3.4.2",
     "@react-navigation/native": "^6.0.2",
+    "@shopify/flash-list": "1.6.4",
     "@tanstack/react-query": "^5.40.0",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
@@ -48,7 +52,8 @@
     "react-native-svg": "^14.1.0",
     "react-native-web": "~0.19.10",
     "tailwind-merge": "^2.3.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
