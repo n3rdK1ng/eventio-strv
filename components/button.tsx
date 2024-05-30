@@ -29,7 +29,7 @@ export const Button = ({
 			{...props}
 		>
 			<Text
-				className={cn({
+				className={cn('text-center', {
 					'text-primary-white': textColor === 'primary-white',
 					'text-secondary': textColor === 'secondary',
 					'text-tertiary': textColor === 'tertiary',
