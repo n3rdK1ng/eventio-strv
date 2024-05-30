@@ -1,6 +1,6 @@
-import { tokenCache } from '../cache'
+import axios from 'axios'
 
-export const headers = {
+const headers = {
 	'Content-Type': 'application/json',
 	// store the API key in the headers so it can be accessed by the client
 	// without exposing it in the client code itself
@@ -8,10 +8,7 @@ export const headers = {
 	ApiKey: process.env.EXPO_PUBLIC_API_KEY,
 }
 
-export const getAuthedHeaders = async () => {
-	const accessToken = await tokenCache.getToken('accessToken')
-	return {
-		...headers,
-		Authorization: accessToken,
-	}
-}
+export const api = axios.create({
+	baseURL: process.env.EXPO_PUBLIC_API_URL,
+	headers,
+})

@@ -11,7 +11,7 @@ import { EventioLogo } from '#/components/svgs/eventio-logo'
 import { Text } from '#/components/text'
 import { TextInput } from '#/components/text-input'
 import { useAuthContext } from '#/context/auth'
-import { headers } from '#/utils/api'
+import { api } from '#/utils/api'
 import { TUser } from '#/utils/api/types'
 import { cn } from '#/utils/misc'
 
@@ -45,13 +45,7 @@ export default function SignInRoute() {
 		setLoading(true)
 
 		try {
-			const response = await axios.post(
-				process.env.EXPO_PUBLIC_API_URL + 'auth/native',
-				formData,
-				{
-					headers,
-				},
-			)
+			const response = await api.post('auth/native', formData)
 
 			await setSession(
 				response.headers['authorization'],
