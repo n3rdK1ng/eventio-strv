@@ -1,11 +1,9 @@
 import { Tabs, useRouter } from 'expo-router'
-import React from 'react'
-import { Platform, TouchableOpacity, View } from 'react-native'
+import { Platform } from 'react-native'
 
 import { AddButton } from '#/components/add-button'
+import { SelectCardsVariant } from '#/components/select-cards-variant'
 import { CalendarIcon } from '#/components/svgs/calendar-icon'
-import { GridIcon } from '#/components/svgs/grid-icon'
-import { LinesIcon } from '#/components/svgs/lines-icon'
 import { UserIcon } from '#/components/svgs/user-icon'
 import { Text } from '#/components/text'
 
@@ -31,6 +29,7 @@ export default function TabLayout() {
 				tabBarLabel: '',
 				headerStyle: {
 					backgroundColor: '#F9F9FB',
+					shadowColor: 'transparent',
 				},
 			}}
 		>
@@ -41,16 +40,7 @@ export default function TabLayout() {
 					headerTitle: () => <Text variant="bodyLarge">Events</Text>,
 					headerTitleAlign: 'center',
 					headerShown: true,
-					headerRight: () => (
-						<View className="flex flex-row gap-3 pr-6">
-							<TouchableOpacity>
-								<GridIcon />
-							</TouchableOpacity>
-							<TouchableOpacity>
-								<LinesIcon />
-							</TouchableOpacity>
-						</View>
-					),
+					headerRight: () => <SelectCardsVariant />,
 				}}
 			/>
 			<Tabs.Screen
