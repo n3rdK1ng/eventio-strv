@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 
 import { Button } from '#/components/button'
@@ -6,10 +7,16 @@ import { ErrorIcon } from '#/components/svgs/error-icon'
 import { Text } from '#/components/text'
 
 export default function NotFoundScreen() {
+	const router = useRouter()
+
 	return (
 		<SafeAreaView backgroundColor={'secondary'}>
 			<View className="flex h-full w-full flex-col-reverse justify-between bg-secondary px-6">
-				<Button text="Try again" className="mb-6 bg-brand-black" />
+				<Button
+					text="Try again"
+					className="mb-6 bg-brand-black"
+					onPress={() => router.replace('/')}
+				/>
 				<View className="flex h-full flex-col items-center justify-center">
 					<View className="mb-[30px] rounded-full bg-primary p-6">
 						<ErrorIcon />
