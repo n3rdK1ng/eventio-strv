@@ -78,7 +78,7 @@ export const EventCard = ({ variant, event, disabled }: TEventCard) => {
 					)}
 				</View>
 				{variant === 'small' && (
-					<EventButton eventId={event.id} variant={handleButtonVariant()} />
+					<EventButton event={event} variant={handleButtonVariant()} />
 				)}
 			</View>
 			<View
@@ -97,7 +97,7 @@ export const EventCard = ({ variant, event, disabled }: TEventCard) => {
 					</View>
 				)}
 				{variant === 'large' && (
-					<EventButton eventId={event.id} variant={handleButtonVariant()} />
+					<EventButton event={event} variant={handleButtonVariant()} />
 				)}
 			</View>
 		</TouchableOpacity>
