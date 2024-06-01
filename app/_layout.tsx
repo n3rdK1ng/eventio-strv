@@ -17,10 +17,10 @@ import { Stack, useRouter } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import 'react-native-reanimated'
 
-import { ArrowIcon } from '#/components/svgs/arrow-icon'
+import { CloseIcon } from '#/components/svgs/close-icon'
 import { Text } from '#/components/text'
 import { AuthProvider } from '#/context/auth'
 
@@ -84,24 +84,31 @@ export default function RootLayout() {
 							}}
 						/>
 						<Stack.Screen
-							name="[event]"
+							name="create-new-event"
 							options={{
+								presentation: 'modal',
+								animation:
+									Platform.OS !== 'ios' ? 'slide_from_bottom' : 'default',
+								animationDuration: 500,
 								headerTitle: () => (
-									<Text variant="bodyLarge">Event Details</Text>
+									<Text variant="bodyLarge">Create new event</Text>
 								),
-								headerLeft: () => {
+								headerRight: () => {
 									return (
 										<TouchableOpacity
 											onPress={() => router.back()}
-											className="pl-0"
+											className="mr-2"
 										>
-											<ArrowIcon className="text-primary" />
+											<CloseIcon className="text-primary" />
 										</TouchableOpacity>
 									)
 								},
 								headerTitleAlign: 'center',
 								headerShown: true,
 								headerBackVisible: false,
+								headerStyle: {
+									backgroundColor: '#FFFFFF',
+								},
 							}}
 						/>
 						<Stack.Screen name="index" options={{ headerShown: false }} />

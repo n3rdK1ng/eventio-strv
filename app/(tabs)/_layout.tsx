@@ -48,10 +48,15 @@ export default function TabLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="explore"
+				name="create-new-event-placeholder"
+				listeners={() => ({
+					tabPress: e => {
+						e.preventDefault()
+					},
+				})}
 				options={{
 					tabBarIcon: () => (
-						<AddButton onPress={() => router.replace('/explore')} />
+						<AddButton onPress={() => router.push('/create-new-event')} />
 					),
 				}}
 			/>
