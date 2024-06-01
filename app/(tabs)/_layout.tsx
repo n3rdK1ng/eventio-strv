@@ -86,7 +86,6 @@ export default function TabLayout() {
 									title="Settings"
 									destructiveText="Logout"
 									editText="Edit profile"
-									className=" text-primary"
 									editFunction={() =>
 										Alert.alert('Missing design and API endpoint 😿')
 									}

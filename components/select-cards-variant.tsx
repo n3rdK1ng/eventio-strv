@@ -7,19 +7,23 @@ import { cn } from '#/utils/misc'
 import { GridIcon } from './svgs/grid-icon'
 import { LinesIcon } from './svgs/lines-icon'
 
+export type TCardVariant = 'large' | 'small'
+
 export const SelectCardsVariant = () => {
 	const router = useRouter()
-	const globalParams = useGlobalSearchParams()
+	const { selectedCardVariant } = useGlobalSearchParams() as {
+		selectedCardVariant: TCardVariant
+	}
 
 	useEffect(() => {
-		if (!globalParams.selectedCardVariant) {
+		if (!selectedCardVariant) {
 			router.setParams({
 				selectedCardVariant: 'large',
 			})
 		}
 	})
 
-	const handlePress = (variant: 'large' | 'small') => () => {
+	const handlePress = (variant: TCardVariant) => () => {
 		router.setParams({
 			selectedCardVariant: variant,
 		})
@@ -30,18 +34,14 @@ export const SelectCardsVariant = () => {
 			<TouchableOpacity onPress={handlePress('large')}>
 				<GridIcon
 					className={cn(
-						globalParams.selectedCardVariant === 'large'
-							? 'text-primary'
-							: 'text-tertiary',
+						selectedCardVariant === 'large' ? 'text-primary' : 'text-tertiary',
 					)}
 				/>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={handlePress('small')}>
 				<LinesIcon
 					className={cn(
-						globalParams.selectedCardVariant === 'small'
-							? 'text-primary'
-							: 'text-tertiary',
+						selectedCardVariant === 'small' ? 'text-primary' : 'text-tertiary',
 					)}
 				/>
 			</TouchableOpacity>
