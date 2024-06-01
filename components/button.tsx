@@ -8,7 +8,7 @@ type TButton = TouchableOpacityProps & {
 	text: string
 	textVariant?: TText['variant']
 	variant?: 'large' | 'extraLarge'
-	textColor?: 'primary-white' | 'secondary' | 'tertiary'
+	textColor?: 'primary' | 'primary-white' | 'secondary' | 'tertiary'
 	className?: string
 }
 
@@ -30,6 +30,7 @@ export const Button = ({
 		>
 			<Text
 				className={cn('text-center', {
+					'text-primary': textColor === 'primary',
 					'text-primary-white': textColor === 'primary-white',
 					'text-secondary': textColor === 'secondary',
 					'text-tertiary': textColor === 'tertiary',
