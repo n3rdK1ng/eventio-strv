@@ -14,8 +14,6 @@ export const useEventLeave = (id: string) => {
 		try {
 			const data = await del(`events/${id}/attendees/me`)
 			updateEvent(id, data)
-		} catch (err) {
-			throw err
 		} finally {
 			setLoading(false)
 		}

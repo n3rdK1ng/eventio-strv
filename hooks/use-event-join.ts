@@ -14,8 +14,6 @@ export const useEventJoin = (id: string) => {
 		try {
 			const data = await post(`events/${id}/attendees/me`)
 			updateEvent(id, data)
-		} catch (err) {
-			throw err
 		} finally {
 			setLoading(false)
 		}
