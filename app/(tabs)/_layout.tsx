@@ -5,6 +5,7 @@ import { ActionSheetAndroid } from '#/components/action-sheet-android'
 import { ActionSheetIos } from '#/components/action-sheet-ios'
 import { AddButton } from '#/components/add-button'
 import { SelectCardsVariant } from '#/components/select-cards-variant'
+import { ArrowIcon } from '#/components/svgs/arrow-icon'
 import { CalendarIcon } from '#/components/svgs/calendar-icon'
 import { UserIcon } from '#/components/svgs/user-icon'
 import { Text } from '#/components/text'
@@ -102,6 +103,20 @@ export default function TabLayout() {
 							)}
 						</>
 					),
+				}}
+			/>
+			<Tabs.Screen
+				name="[event]"
+				options={{
+					headerTitle: () => <Text variant="bodyLarge">Event Details</Text>,
+					headerLeft: () => (
+						<TouchableOpacity onPress={() => router.back()} className="ml-6">
+							<ArrowIcon className="text-primary" />
+						</TouchableOpacity>
+					),
+					headerTitleAlign: 'center',
+					headerShown: true,
+					tabBarButton: () => null,
 				}}
 			/>
 			<Tabs.Screen
