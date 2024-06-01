@@ -1,5 +1,5 @@
 import { Tabs, useRouter } from 'expo-router'
-import { Alert, Platform, TouchableOpacity } from 'react-native'
+import { Alert, Platform, TouchableOpacity, View } from 'react-native'
 
 import { ActionSheetAndroid } from '#/components/action-sheet-android'
 import { ActionSheetIos } from '#/components/action-sheet-ios'
@@ -30,6 +30,11 @@ export default function TabLayout() {
 						ios: 0,
 					}),
 					paddingBottom: 0,
+					shadowColor: '#000',
+					shadowOffset: { width: 0, height: -2 },
+					shadowOpacity: 0.1,
+					shadowRadius: 20,
+					elevation: 20,
 				},
 				tabBarLabel: '',
 				headerStyle: {
@@ -73,7 +78,7 @@ export default function TabLayout() {
 					headerTitleAlign: 'center',
 					headerShown: true,
 					headerRight: () => (
-						<>
+						<View className="mr-6">
 							{Platform.OS === 'ios' ? (
 								<ActionSheetIos
 									title="Settings"
@@ -101,7 +106,7 @@ export default function TabLayout() {
 									}}
 								/>
 							)}
-						</>
+						</View>
 					),
 				}}
 			/>
