@@ -92,14 +92,19 @@ export default function SignInRoute() {
 					rules={{
 						required: true,
 					}}
-					render={({ field: { onChange, onBlur, value } }) => (
+					render={({
+						field: { onChange, onBlur, value },
+						formState: { isDirty },
+					}) => (
 						<View className="mb-10 w-full">
 							<TextInput
 								placeholder="Email"
+								isDirty={isDirty}
 								onBlur={onBlur}
 								onChangeText={onChange}
 								value={value}
 								error={errors.email?.message?.replace('String', 'Email') ?? ''}
+								autoCapitalize="none"
 							/>
 						</View>
 					)}
@@ -110,9 +115,13 @@ export default function SignInRoute() {
 					rules={{
 						required: true,
 					}}
-					render={({ field: { onChange, onBlur, value } }) => (
+					render={({
+						field: { onChange, onBlur, value },
+						formState: { isDirty },
+					}) => (
 						<TextInput
 							placeholder="Password"
+							isDirty={isDirty}
 							isPassword
 							onBlur={onBlur}
 							onChangeText={onChange}
@@ -120,7 +129,7 @@ export default function SignInRoute() {
 							error={
 								errors.password?.message?.replace('String', 'Password') ?? ''
 							}
-						/>
+						/> 
 					)}
 					name="password"
 				/>
