@@ -1,14 +1,18 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { usePathname } from 'expo-router'
 import { useState } from 'react'
-import { Controller } from 'react-hook-form'
+import { type Control, Controller } from 'react-hook-form'
 import { Platform, TouchableOpacity } from 'react-native'
+
+import { type TEventSchema } from '#/app/create-new-event'
+import { cn } from '#/utils/misc'
 
 import { Button } from './button'
 import { TextInput } from './text-input'
 
 type TDateTimePickerController = {
-	control: any
-	name: string
+	control: Control<TEventSchema, any>
+	name: keyof TEventSchema
 	placeholder: string
 	variant: 'date' | 'time'
 	error: string
@@ -21,6 +25,7 @@ export const DateTimePickerController = ({
 	variant,
 	error,
 }: TDateTimePickerController) => {
+	const path = usePathname()
 	const [show, setShow] = useState(false)
 	return (
 		<Controller
@@ -30,7 +35,7 @@ export const DateTimePickerController = ({
 				formState: { isDirty },
 			}) => (
 				<TouchableOpacity
-					className="mb-10 w-full"
+					className={cn('mb-10 w-full', path === '/edit' && 'mb-6')}
 					onPress={() => {
 						Platform.OS === 'android' && setShow(show => !show)
 					}}
