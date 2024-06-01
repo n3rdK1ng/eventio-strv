@@ -7,17 +7,13 @@ import {
 	Box,
 } from '@gluestack-ui/themed'
 import { useState } from 'react'
-import {
-	TouchableOpacity,
-	type TouchableOpacityProps,
-	View,
-} from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 
 import { SettingsIcon } from '#/components/svgs/settings-icon'
 
 import { Text } from './text'
 
-type TActionSheetAndroid = TouchableOpacityProps & {
+type TActionSheetAndroid = {
 	editFunction: () => void
 	destructiveFunction: () => void
 	editText?: string
@@ -33,19 +29,19 @@ export const ActionSheetAndroid = ({
 	title,
 }: TActionSheetAndroid) => {
 	const [showActionsheet, setShowActionsheet] = useState(false)
-	const handleClose = () => setShowActionsheet(!showActionsheet)
+	const toggleActionsheet = () =>
+		setShowActionsheet(prevShowActionsheet => !prevShowActionsheet)
 
 	return (
 		<Box>
 			<TouchableOpacity
-				className="mr-6"
 				onPress={() => {
-					handleClose()
+					toggleActionsheet()
 				}}
 			>
 				<SettingsIcon className="text-primary" />
 			</TouchableOpacity>
-			<Actionsheet isOpen={showActionsheet} onClose={handleClose}>
+			<Actionsheet isOpen={showActionsheet} onClose={toggleActionsheet}>
 				<ActionsheetBackdrop />
 				<ActionsheetContent>
 					<ActionsheetDragIndicatorWrapper>
@@ -61,7 +57,10 @@ export const ActionSheetAndroid = ({
 						{editText && (
 							<TouchableOpacity
 								className="w-full border-t border-[#3C3C435C] py-[18px]"
-								onPress={editFunction}
+								onPress={() => {
+									editFunction()
+									toggleActionsheet()
+								}}
 							>
 								<Text
 									className="text-center text-[#007AFF]"
@@ -73,7 +72,10 @@ export const ActionSheetAndroid = ({
 						)}
 						<TouchableOpacity
 							className="w-full border-t border-[#3C3C435C] py-[18px]"
-							onPress={destructiveFunction}
+							onPress={() => {
+								destructiveFunction()
+								toggleActionsheet()
+							}}
 						>
 							<Text
 								className="text-center text-[#FF3B30]"
