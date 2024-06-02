@@ -104,6 +104,15 @@ export default function TabLayout() {
 					),
 				}}
 			/>
+			<Tabs.Screen
+				name="edit-event"
+				options={{
+					headerTitle: () => <Text variant="bodyLarge">Event Details</Text>,
+					headerTitleAlign: 'center',
+					headerShown: true,
+					tabBarButton: () => null,
+				}}
+			/>
 		</Tabs>
 	)
 }
