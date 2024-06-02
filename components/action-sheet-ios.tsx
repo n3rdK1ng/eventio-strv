@@ -1,12 +1,8 @@
-import {
-	ActionSheetIOS,
-	TouchableOpacity,
-	TouchableOpacityProps,
-} from 'react-native'
+import { ActionSheetIOS, TouchableOpacity } from 'react-native'
 
 import { SettingsIcon } from './svgs/settings-icon'
 
-type TActionSheetIos = TouchableOpacityProps & {
+type TActionSheetIos = {
 	title: string
 	options: string[]
 	onOptionPress: (index: number) => void
@@ -34,7 +30,7 @@ export const ActionSheetIos = ({
 		)
 
 	return (
-		<TouchableOpacity className="mr-6" onPress={onPress}>
+		<TouchableOpacity onPress={onPress}>
 			<SettingsIcon className="text-primary" />
 		</TouchableOpacity>
 	)
