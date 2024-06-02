@@ -21,7 +21,7 @@ export default function ProfileRoute() {
 				<Text variant="bodyLarge">My events</Text>
 				<SelectCardsVariant />
 			</View>
-			<EventList variant="profile" />
+			<EventList />
 		</View>
 	)
 }

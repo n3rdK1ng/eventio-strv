@@ -13,7 +13,7 @@ export default function DashboardRoute() {
 	return (
 		<View className="h-full w-full bg-primary">
 			<EventFilters />
-			<EventList variant="all" />
+			<EventList />
 		</View>
 	)
 }

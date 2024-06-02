@@ -1,6 +1,6 @@
 import { FlashList } from '@shopify/flash-list'
-import { useGlobalSearchParams, useRouter } from 'expo-router'
-import { memo } from 'react'
+import { useGlobalSearchParams, usePathname, useRouter } from 'expo-router'
+import { memo, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { useAuthContext } from '#/context/auth'
@@ -8,19 +8,47 @@ import { useEvents } from '#/hooks/use-events'
 import { cn } from '#/utils/misc'
 
 import { EventCard } from './event-card'
+import { type TFilter } from './event-filters'
 import { LoadingIndicator } from './loading-indicator'
+import { type TCardVariant } from './select-cards-variant'
 
-type TEventList = {
-	variant: 'all' | 'profile'
-}
-
-export const EventListComponent = ({ variant }: TEventList) => {
+export const EventList = memo(() => {
 	const router = useRouter()
-	const { selectedCardVariant } = useGlobalSearchParams() as {
-		selectedCardVariant: 'large' | 'small'
+	const path = usePathname()
+	const { selectedCardVariant, eventFilter } = useGlobalSearchParams() as {
+		selectedCardVariant: TCardVariant
+		eventFilter: TFilter
 	}
 	const { user } = useAuthContext()
 	const { loading, data } = useEvents()
+
+	const filteredData = useMemo(() => {
+		// sort the data by date
+		const sortedData = [...data].sort(
+			(a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime(),
+		)
+
+		if (path === '/profile') {
+			return sortedData.filter(
+				event =>
+					event.attendees.some(attendee => attendee.id === user?.id) ||
+					event.ownerId === user?.id,
+			)
+		}
+
+		switch (eventFilter) {
+			case 'all':
+				return sortedData
+			case 'future':
+				return sortedData.filter(
+					event => new Date(event.startsAt).getTime() > new Date().getTime(),
+				)
+			case 'past':
+				return sortedData.filter(
+					event => new Date(event.startsAt).getTime() < new Date().getTime(),
+				)
+		}
+	}, [data, path, eventFilter, selectedCardVariant])
 
 	if (!user) {
 		router.replace('/sign-in')
@@ -31,28 +59,13 @@ export const EventListComponent = ({ variant }: TEventList) => {
 		return <LoadingIndicator />
 	}
 
-	const handleVariantFilter = () => {
-		if (variant === 'all') {
-			return data.toReversed()
-		} else {
-			return data
-				.toReversed()
-				.filter(event =>
-					event.attendees.some(attendee => attendee.id === user.id),
-				)
-		}
-	}
-
 	return (
-		<View
-			className={cn(
-				'h-full w-full',
-				variant === 'all' && 'mt-4 pb-24',
-				variant === 'profile' && 'pb-80',
-			)}
-		>
+		<View className={cn('h-full w-full', path !== '/profile' && 'mt-4')}>
 			<FlashList
-				data={handleVariantFilter()}
+				contentContainerStyle={{
+					paddingBottom: path !== '/profile' ? 100 : 350,
+				}}
+				data={filteredData}
 				renderItem={({ item }) => (
 					<EventCard key={item.id} variant={selectedCardVariant} event={item} />
 				)}
@@ -60,6 +73,4 @@ export const EventListComponent = ({ variant }: TEventList) => {
 			/>
 		</View>
 	)
-}
-
-export const EventList = memo(EventListComponent)
+})
