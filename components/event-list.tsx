@@ -1,6 +1,6 @@
 import { FlashList } from '@shopify/flash-list'
 import { useGlobalSearchParams, usePathname, useRouter } from 'expo-router'
-import { memo, useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 import { useAuthContext } from '#/context/auth'
@@ -12,7 +12,7 @@ import { type TFilter } from './event-filters'
 import { LoadingIndicator } from './loading-indicator'
 import { type TCardVariant } from './select-cards-variant'
 
-export const EventList = memo(() => {
+export const EventList = () => {
 	const router = useRouter()
 	const path = usePathname()
 	const { selectedCardVariant, eventFilter } = useGlobalSearchParams() as {
@@ -48,7 +48,8 @@ export const EventList = memo(() => {
 					event => new Date(event.startsAt).getTime() < new Date().getTime(),
 				)
 		}
-	}, [data, path, eventFilter, selectedCardVariant])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data, path, eventFilter, selectedCardVariant, user])
 
 	if (!user) {
 		router.replace('/sign-in')
@@ -73,4 +74,4 @@ export const EventList = memo(() => {
 			/>
 		</View>
 	)
-})
+}

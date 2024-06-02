@@ -87,7 +87,7 @@ export default function CreateNewEventRoute() {
 		try {
 			const { id } = await createEvent(event)
 			router.replace(id)
-		} catch (error) {
+		} catch {
 			const fields = [
 				'title',
 				'description',

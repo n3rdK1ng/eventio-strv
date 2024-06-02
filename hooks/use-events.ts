@@ -37,7 +37,7 @@ export const useEvents = () => {
 		if (!eventsFetched) {
 			fetchEvents()
 		}
-	}, [])
+	}, [eventsFetched, fetchEvents])
 
 	useEffect(() => {
 		if (error) {
