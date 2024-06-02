@@ -1,4 +1,3 @@
-import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 
 import { useAuthContext } from '#/context/auth'
@@ -7,10 +6,8 @@ import { Text } from './text'
 
 export const ProfileCard = () => {
 	const { user } = useAuthContext()
-	const router = useRouter()
 
 	if (!user) {
-		router.replace('/sign-in')
 		return null
 	}
 

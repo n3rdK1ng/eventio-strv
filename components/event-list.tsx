@@ -1,5 +1,5 @@
 import { FlashList } from '@shopify/flash-list'
-import { useGlobalSearchParams, usePathname, useRouter } from 'expo-router'
+import { useGlobalSearchParams, usePathname } from 'expo-router'
 import { useMemo } from 'react'
 import { View } from 'react-native'
 
@@ -13,7 +13,6 @@ import { LoadingIndicator } from './loading-indicator'
 import { type TCardVariant } from './select-cards-variant'
 
 export const EventList = () => {
-	const router = useRouter()
 	const path = usePathname()
 	const { selectedCardVariant, eventFilter } = useGlobalSearchParams() as {
 		selectedCardVariant: TCardVariant
@@ -52,7 +51,6 @@ export const EventList = () => {
 	}, [data, path, eventFilter, selectedCardVariant, user])
 
 	if (!user) {
-		router.replace('/sign-in')
 		return null
 	}
 
