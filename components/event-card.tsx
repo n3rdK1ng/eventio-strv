@@ -6,11 +6,12 @@ import { TEvent } from '#/utils/api/types'
 import { cn } from '#/utils/misc'
 
 import { EventButton } from './event-button'
+import { type TCardVariant } from './select-cards-variant'
 import { UserIcon } from './svgs/user-icon'
 import { Text } from './text'
 
 type TEventCard = {
-	variant: 'small' | 'large'
+	variant: TCardVariant
 	event: TEvent
 	disabled?: boolean
 }
