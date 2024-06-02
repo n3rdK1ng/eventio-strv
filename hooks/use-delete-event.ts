@@ -1,11 +1,11 @@
-import { useRouter } from 'expo-router'
+import { useNavigation } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 import { useAuthedFetch } from './use-authed-fetch'
 import { useEventStore } from './use-store'
 
 export const useDeleteEvent = (eventId: string) => {
-	const router = useRouter()
+	const navigation = useNavigation()
 	const { del } = useAuthedFetch()
 	const { updateEvents } = useEventStore(state => state)
 
@@ -17,7 +17,11 @@ export const useDeleteEvent = (eventId: string) => {
 		try {
 			await del(`events/${eventId}`)
 			updateEvents(events => events.filter(({ id }) => id !== eventId))
-			router.replace('/dashboard')
+			navigation.reset({
+				index: 0,
+				// @ts-ignore
+				routes: [{ name: 'dashboard' }],
+			})
 		} catch (error) {
 			setError(error)
 		} finally {
