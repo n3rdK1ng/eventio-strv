@@ -68,7 +68,7 @@ export default function EditEventRoute() {
 				),
 			})
 		}
-	}, [navigation, event])
+	}, [navigation, event, router])
 
 	const {
 		control,
@@ -117,7 +117,7 @@ export default function EditEventRoute() {
 		try {
 			const { id } = await updateEvent(event)
 			router.replace(id)
-		} catch (error) {
+		} catch {
 			const fields = [
 				'title',
 				'description',

@@ -69,7 +69,7 @@ export default function EventRoute() {
 				),
 			})
 		}
-	}, [navigation, event, user])
+	}, [navigation, event, user, deleteEvent, router])
 
 	useEffect(() => {
 		if (!event) {

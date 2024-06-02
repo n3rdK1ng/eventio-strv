@@ -40,7 +40,7 @@ export const EventFilters = () => {
 				eventFilter: 'all',
 			})
 		}
-	}, [])
+	}, [eventFilter, router])
 
 	const handlePress = (filter: TFilter) => () => {
 		router.setParams({
