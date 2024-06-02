@@ -38,16 +38,13 @@ export const useAuthedFetch = () => {
 			headers: { Authorization: currentToken },
 		}
 
-		let response
-		if (method === 'get' || method === 'delete') {
-			response = await api[method](url, headers)
-		} else {
-			response = await api[method](url, data, headers)
-		}
+		const response =
+			method === 'get' || method === 'delete'
+				? await api[method](url, headers)
+				: await api[method](url, data, headers)
 
+		// clear the token after the request is done
 		setToken(null)
-
-		if (response.status !== 200) throw new Error('Fetch failed')
 
 		return response.data
 	}
