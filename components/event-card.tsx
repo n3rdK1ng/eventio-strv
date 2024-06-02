@@ -62,7 +62,7 @@ export const EventCard = ({ variant, event, disabled }: TEventCard) => {
 							minute: 'numeric',
 						})}
 					</Text>
-					<Text variant="bodyMedium" className="mb-1 text-primary">
+					<Text variant="bodyMedium" className="mb-1 text-primary w-48">
 						{event.title}
 					</Text>
 					<Text
