@@ -1,18 +1,28 @@
+import { usePathname, useRouter } from 'expo-router'
+
 import { useEventJoin } from '#/hooks/use-event-join'
 import { useEventLeave } from '#/hooks/use-event-leave'
+import { TEvent } from '#/utils/api/types'
 import { cn } from '#/utils/misc'
 
 import { Button } from './button'
 
 type TEventButton = {
 	variant: 'join' | 'leave' | 'edit'
-	eventId: string
+	event: TEvent
 }
-export const EventButton = ({ variant, eventId }: TEventButton) => {
-	const { isJoining, joinEvent } = useEventJoin(eventId)
-	const { isLeaving, leaveEvent } = useEventLeave(eventId)
+export const EventButton = ({ variant, event }: TEventButton) => {
+	const router = useRouter()
+	const path = usePathname()
+	const { isJoining, joinEvent } = useEventJoin(event.id)
+	const { isLeaving, leaveEvent } = useEventLeave(event.id)
 
 	const loading = isJoining || isLeaving
+
+	if (path !== '/dashboard' && path !== '/profile' && variant === 'edit') {
+		return null
+	}
+	if (variant !== 'edit' && new Date(event.startsAt) < new Date()) return null
 
 	return (
 		<Button
@@ -36,7 +46,10 @@ export const EventButton = ({ variant, eventId }: TEventButton) => {
 						await leaveEvent()
 						break
 					case 'edit':
-						console.log('edit')
+						router.push({
+							pathname: 'edit-event',
+							params: { event: event.id },
+						})
 						break
 				}
 			}}
