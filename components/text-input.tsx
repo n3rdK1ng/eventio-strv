@@ -1,3 +1,4 @@
+import { usePathname } from 'expo-router'
 import { useState } from 'react'
 import {
 	Platform,
@@ -15,32 +16,36 @@ import { Text } from './text'
 
 type TTextInput = TextInputProps & {
 	placeholder: string
+	isDirty: boolean
 	isPassword?: boolean
 	error?: string
-	focused?: boolean
 }
 
 export const TextInput = ({
 	placeholder,
+	isDirty,
 	isPassword,
 	error,
 	className,
 	...props
 }: TTextInput) => {
+	const path = usePathname()
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-	const [isFocused, setIsFocused] = useState(false)
 
 	return (
 		<View className="relative w-full">
+			{path === '/edit' && (
+				<Text variant="bodySmall" className="text-tertiary">
+					{placeholder}
+				</Text>
+			)}
 			<TextInputRN
 				placeholder={placeholder}
 				placeholderTextColor={'#A7A7B9'}
 				secureTextEntry={isPassword && !isPasswordVisible}
-				onFocus={() => setIsFocused(true)}
-				onBlur={() => setIsFocused(false)}
 				className={cn(
-					'relative w-full border-b border-tertiary pb-[13px] pt-0.5',
-					isFocused && 'border-brand-black',
+					'relative w-full border-b border-tertiary pb-[14px] pt-0.5 text-tertiary',
+					(isDirty || props.value) && 'border-black text-primary',
 					error && 'border-error',
 					error !== ' ' && 'mb-2',
 					className,
