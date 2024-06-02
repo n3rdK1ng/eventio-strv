@@ -17,9 +17,9 @@ export default function Index() {
 	const onLayoutRootView = useCallback(() => {
 		if (isLoaded) {
 			if (user) {
-				router.push('/dashboard')
+				router.replace('/dashboard')
 			} else {
-				router.push('/sign-in')
+				router.replace('/sign-in')
 			}
 		}
 	}, [isLoaded, user, router])
