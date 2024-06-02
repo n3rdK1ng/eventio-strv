@@ -59,6 +59,10 @@ export const TextInput = ({
 						ios: 'Inter-Regular',
 					}),
 				}}
+				// workaround for iOS keychaing bug
+				// causing keyboard flickering
+				// TODO: remove when fixed or find a better solution
+				textContentType="oneTimeCode"
 				{...props}
 			/>
 			{error !== ' ' && (

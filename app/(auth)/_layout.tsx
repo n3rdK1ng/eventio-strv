@@ -1,14 +1,27 @@
 import { Slot } from 'expo-router'
-import { View } from 'react-native'
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 
 import { SafeAreaView } from '#/components/safe-area-view'
 
 export default function AuthLayout() {
 	return (
 		<SafeAreaView backgroundColor="secondary">
-			<View className="flex h-full w-full flex-col items-center justify-between bg-secondary px-6">
-				<Slot />
-			</View>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			>
+				<ScrollView
+					className="h-full w-full bg-secondary px-6"
+					contentContainerStyle={{
+						flexGrow: 1,
+						justifyContent: 'flex-end',
+					}}
+					keyboardShouldPersistTaps="always"
+				>
+					<View className="h-full justify-between">
+						<Slot />
+					</View>
+				</ScrollView>
+			</KeyboardAvoidingView>
 		</SafeAreaView>
 	)
 }
