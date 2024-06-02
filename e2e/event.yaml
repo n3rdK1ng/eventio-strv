@@ -1,0 +1,18 @@
+appId: com.eventiostrv
+---
+- launchApp:
+    appId: com.eventiostrv
+# Expo Go
+# - openLink: exp://192.168.0.24:8081
+# close expo go message
+# - tapOn:
+#     point: '94%,59%'
+- tapOn: 'FUTURE'
+- tapOn:
+    point: '50%,33%'
+- tapOn:
+    point: '79%,36%'
+- tapOn:
+    point: '81%,36%'
+- tapOn:
+    point: '8%,8%'

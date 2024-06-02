@@ -1,0 +1,41 @@
+appId: com.eventiostrv
+---
+- launchApp:
+    appId: com.eventiostrv
+# Expo Go
+# - openLink: exp://192.168.0.24:8081
+# close expo go message
+# - tapOn:
+#     point: '94%,59%'
+- tapOn:
+    point: '50%,95%'
+- tapOn: 'Title'
+- inputText: 'TEST'
+- tapOn: 'Description'
+- inputText: 'Test Description'
+- tapOn: 'Date'
+- tapOn:
+    point: '38%,65%'
+- tapOn:
+    point: '49%,73%'
+- tapOn: 'Time'
+- tapOn:
+    point: '40%,76%'
+- tapOn:
+    point: '50%,85%'
+- tapOn: 'Capacity'
+- inputText: 5
+- tapOn:
+    point: '47%,61%'
+- tapOn: 'SUBMIT'
+- tapOn:
+    point: '92%,8%'
+- tapOn: 'Edit Event'
+- tapOn: 'Test Description'
+- inputText: 'Edit'
+- tapOn:
+    point: '50%,55%'
+- tapOn: 'EDIT'
+- tapOn:
+    point: '92%,8%'
+- tapOn: 'Delete'

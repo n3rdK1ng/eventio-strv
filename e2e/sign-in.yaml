@@ -1,0 +1,14 @@
+appId: com.eventiostrv
+---
+- launchApp:
+    appId: com.eventiostrv
+# Expo Go
+# - openLink: exp://192.168.0.24:8081
+# close expo go message
+# - tapOn:
+#     point: '94%,59%'
+- tapOn: 'Email'
+- inputText: 'brucebanner@strv.com'
+- tapOn: 'Password'
+- inputText: 'kill3r'
+- tapOn: 'SIGN IN'
