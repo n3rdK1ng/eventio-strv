@@ -83,7 +83,7 @@ export default function SignUpRoute() {
 
 	return (
 		<>
-			<View className="flex w-full flex-col items-center">
+			<View className="w-full items-center">
 				<EventioLogo className="mb-10 mt-14" />
 				<Text variant="titleLarge" className="mb-4 ">
 					Get started absolutely free.
@@ -185,7 +185,7 @@ export default function SignUpRoute() {
 					name="password"
 				/>
 			</View>
-			<View className="flex w-full flex-col items-center">
+			<View className="w-full items-center">
 				<Button
 					text={!loading ? 'SIGN UP' : 'LOADING...'}
 					className={cn('mb-3 bg-brand-green', loading && 'opacity-50')}

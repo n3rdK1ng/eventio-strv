@@ -27,7 +27,7 @@ export const LoadingIndicator = (props: SvgProps) => {
 	})
 
 	return (
-		<View className="h-full w-full flex-col items-center justify-center">
+		<View className="h-full w-full items-center justify-center">
 			<AnimatedSvg
 				style={{ transform: [{ rotate: spin }] }}
 				width={40}

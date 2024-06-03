@@ -24,7 +24,7 @@ export const ProfileCard = () => {
 				shadowRadius: 4,
 				elevation: 3,
 			}}
-			className="mb-6 mt-[92px] flex h-[164px] w-full flex-col items-center justify-between rounded-lg bg-secondary p-8"
+			className="mb-6 mt-[92px] h-[164px] w-full items-center justify-between rounded-lg bg-secondary p-8"
 		>
 			<View className="-mt-[92px] flex h-[120px] w-[120px] justify-center rounded-full bg-disabled">
 				<Text className="text-center text-tertiary" variant="profileInitials">
