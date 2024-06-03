@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router'
 import { TouchableOpacity, View } from 'react-native'
 
 import { useAuthContext } from '#/context/auth'
-import { TEvent } from '#/utils/api/types'
+import { type TEvent } from '#/utils/api/types'
 import { cn } from '#/utils/misc'
 
 import { EventButton } from './event-button'
