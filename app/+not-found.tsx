@@ -17,7 +17,7 @@ export default function NotFoundScreen() {
 					className="mb-6 bg-brand-black"
 					onPress={() => router.replace('/')}
 				/>
-				<View className="flex h-full flex-col items-center justify-center">
+				<View className="h-full items-center justify-center">
 					<View className="mb-[30px] rounded-full bg-primary p-6">
 						<ErrorIcon />
 					</View>

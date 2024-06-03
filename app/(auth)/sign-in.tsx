@@ -87,7 +87,7 @@ export default function SignInRoute() {
 
 	return (
 		<>
-			<View className="flex w-full flex-col items-center">
+			<View className="w-full items-center">
 				<EventioLogo className="mb-10 mt-14" />
 				<Text className="mb-4" variant="titleLarge">
 					Sign in to Eventio.
@@ -140,7 +140,7 @@ export default function SignInRoute() {
 					name="password"
 				/>
 			</View>
-			<View className="flex w-full flex-col items-center">
+			<View className="w-full items-center">
 				<Button
 					text={!loading ? 'SIGN IN' : 'LOADING...'}
 					className={cn('mb-3 bg-brand-green', loading && 'opacity-50')}
