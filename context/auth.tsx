@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		} finally {
 			setIsLoggingOut(false)
 		}
-	}, [])
+	}, [router])
 
 	const refreshSession = useCallback(async () => {
 		const refreshToken = await tokenCache.getToken(refreshTokenKey)
