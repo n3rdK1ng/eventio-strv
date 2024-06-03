@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { type Control, Controller } from 'react-hook-form'
 import { Platform, TouchableOpacity } from 'react-native'
 
-import { type TEventSchema } from '#/app/create-new-event'
+import { type TEventSchema } from '#/hooks/use-event-form'
 import { cn } from '#/utils/misc'
 
 import { Button } from './button'
