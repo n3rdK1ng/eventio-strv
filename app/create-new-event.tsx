@@ -1,7 +1,5 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'expo-router'
 import { type ErrorBoundaryProps } from 'expo-router'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -9,108 +7,20 @@ import {
 	StatusBar,
 	View,
 } from 'react-native'
-import { z } from 'zod'
 
 import { Button } from '#/components/button'
 import { CustomErrorBoundary } from '#/components/custom-error-boundary'
 import { DateTimePickerController } from '#/components/datetime-picker-controller'
 import { TextInput } from '#/components/text-input'
-import { useCreateEvent } from '#/hooks/use-create-event'
-import { cn, dateRegex, isEventInFuture } from '#/utils/misc'
+import useEventForm from '#/hooks/use-event-form'
+import { cn } from '#/utils/misc'
 
 export function ErrorBoundary(props: ErrorBoundaryProps) {
 	return <CustomErrorBoundary {...props} />
 }
 
-const eventSchema = z.object({
-	title: z.string().min(3),
-	description: z.string().min(6),
-	date: z
-		.string()
-		.regex(dateRegex, 'Date is required')
-		.refine(date => {
-			if (isNaN(Date.parse(date))) {
-				return false
-			}
-
-			const inputDate = new Date(date).toISOString().split('T')[0]
-			const today = new Date().toISOString().split('T')[0]
-
-			return inputDate >= today
-		}, 'Date must be in the future or today'),
-	time: z.string().regex(dateRegex, 'Time is required'),
-
-	capacity: z
-		.string()
-		.regex(/^\d+$/, 'Capacity is required number')
-		.refine(capacity => parseInt(capacity) >= 1, 'Capacity must be at least 1'),
-})
-
-export type TEventSchema = z.infer<typeof eventSchema>
-
 export default function CreateNewEventRoute() {
-	const router = useRouter()
-	const { createEvent, loading } = useCreateEvent()
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-		setError,
-	} = useForm<TEventSchema>({
-		resolver: zodResolver(eventSchema),
-		defaultValues: {
-			title: '',
-			description: '',
-			date: '',
-			time: '',
-			capacity: '',
-		},
-	})
-
-	const onSubmit = async (formData: TEventSchema) => {
-		const { isInFuture, dateTime } = isEventInFuture(
-			formData.date,
-			formData.time,
-		)
-
-		if (!isInFuture) {
-			setError('date', {
-				message: 'Event must be in the future',
-			})
-			setError('time', {
-				message: 'Event must be in the future',
-			})
-			return
-		}
-
-		const { date, time, ...rest } = formData
-		const event = {
-			...rest,
-			startsAt: dateTime.toISOString(),
-			capacity: parseInt(formData.capacity),
-		}
-
-		try {
-			const { id } = await createEvent(event)
-			router.replace(id)
-		} catch {
-			const fields = [
-				'title',
-				'description',
-				'date',
-				'time',
-				'capacity',
-			] as const
-			fields.forEach((field, index) => {
-				setError(field, {
-					message:
-						index === fields.length - 1
-							? 'Unable to create event, please try again'
-							: ' ',
-				})
-			})
-		}
-	}
+	const { control, handleSubmit, errors, onSubmit, loading } = useEventForm()
 
 	return (
 		<KeyboardAvoidingView

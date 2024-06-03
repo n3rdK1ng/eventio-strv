@@ -1,8 +1,7 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
 import { type ErrorBoundaryProps } from 'expo-router'
 import { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -10,63 +9,30 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native'
-import { z } from 'zod'
 
 import { Button } from '#/components/button'
 import { CustomErrorBoundary } from '#/components/custom-error-boundary'
 import { DateTimePickerController } from '#/components/datetime-picker-controller'
 import { ArrowIcon } from '#/components/svgs/arrow-icon'
 import { TextInput } from '#/components/text-input'
-import { useEvents } from '#/hooks/use-events'
-import { useUpdateEvent } from '#/hooks/use-update-event'
-import { cn, dateRegex, isEventInFuture } from '#/utils/misc'
+import useEventForm from '#/hooks/use-event-form'
+import { cn } from '#/utils/misc'
 
 export function ErrorBoundary(props: ErrorBoundaryProps) {
 	return <CustomErrorBoundary {...props} />
 }
 
-const eventSchema = z.object({
-	title: z.string().min(3),
-	description: z.string().min(6),
-	date: z
-		.string()
-		.regex(dateRegex, 'Date is required')
-		.refine(date => {
-			if (isNaN(Date.parse(date))) {
-				return false
-			}
-
-			const inputDate = new Date(date).toISOString().split('T')[0]
-			const today = new Date().toISOString().split('T')[0]
-
-			return inputDate >= today
-		}, 'Date must be in the future or today'),
-	time: z.string().regex(dateRegex, 'Time is required'),
-
-	capacity: z
-		.string()
-		.regex(/^\d+$/, 'Capacity is required number')
-		.refine(capacity => parseInt(capacity) >= 1, 'Capacity must be at least 1'),
-})
-
-export type TEventSchema = z.infer<typeof eventSchema>
-
 export default function EditEventRoute() {
-	const { event: eventId } = useLocalSearchParams()
+	const { event } = useLocalSearchParams() as { event: string }
 	const router = useRouter()
 	const navigation = useNavigation()
-	const { data } = useEvents()
-
-	const event = data.find(e => e.id === eventId)
-
-	const { updateEvent, loading } = useUpdateEvent(event?.id ?? '')
 
 	useEffect(() => {
 		if (event) {
 			navigation.setOptions({
 				headerLeft: () => (
 					<TouchableOpacity
-						onPress={() => router.replace(event.id)}
+						onPress={() => router.replace(event)}
 						className="ml-6"
 					>
 						<ArrowIcon className="text-primary" />
@@ -78,66 +44,9 @@ export default function EditEventRoute() {
 		}
 	}, [navigation, event, router])
 
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-		setError,
-	} = useForm<TEventSchema>({
-		resolver: zodResolver(eventSchema),
-		defaultValues: {
-			title: event?.title,
-			description: event?.description,
-			date: event?.startsAt,
-			time: event?.startsAt,
-			capacity: event?.capacity.toString(),
-		},
-	})
-
-	const onSubmit = async (formData: TEventSchema) => {
-		const { isInFuture, dateTime } = isEventInFuture(
-			formData.date,
-			formData.time,
-		)
-
-		if (!isInFuture) {
-			setError('date', {
-				message: 'Event must be in the future',
-			})
-			setError('time', {
-				message: 'Event must be in the future',
-			})
-			return
-		}
-
-		const { date, time, ...rest } = formData
-		const event = {
-			...rest,
-			startsAt: dateTime.toISOString(),
-			capacity: parseInt(formData.capacity),
-		}
-
-		try {
-			const { id } = await updateEvent(event)
-			router.replace(id)
-		} catch {
-			const fields = [
-				'title',
-				'description',
-				'date',
-				'time',
-				'capacity',
-			] as const
-			fields.forEach((field, index) => {
-				setError(field, {
-					message:
-						index === fields.length - 1
-							? 'Unable to edit event, please try again'
-							: ' ',
-				})
-			})
-		}
-	}
+	const { control, handleSubmit, errors, onSubmit, loading } = useEventForm(
+		event ?? '',
+	)
 
 	if (!event) {
 		return null
@@ -250,7 +159,7 @@ export default function EditEventRoute() {
 					text={'CANCEL'}
 					className="mt-2 bg-secondary"
 					textColor="primary"
-					onPress={() => router.replace(event.id)}
+					onPress={() => router.replace(event)}
 				/>
 			</ScrollView>
 		</KeyboardAvoidingView>
