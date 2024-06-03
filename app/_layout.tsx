@@ -11,9 +11,11 @@ import {
 } from '@expo-google-fonts/inter'
 import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
+import * as Sentry from '@sentry/react-native'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { isRunningInExpoGo } from 'expo'
 import { useFonts } from 'expo-font'
-import { Stack, useRouter } from 'expo-router'
+import { Stack, useNavigationContainerRef, useRouter } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
@@ -29,8 +31,24 @@ import '../global.css'
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
 
-export default function RootLayout() {
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation()
+
+Sentry.init({
+	dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+	debug: true,
+	integrations: [
+		new Sentry.ReactNativeTracing({
+			// Pass instrumentation to be used as `routingInstrumentation`
+			routingInstrumentation,
+			enableNativeFramesTracking: !isRunningInExpoGo(),
+			// ...
+		}),
+	],
+})
+
+function RootLayout() {
 	const router = useRouter()
+	const ref = useNavigationContainerRef()
 	const [loaded] = useFonts({
 		Inter_100Thin,
 		Inter_200ExtraLight,
@@ -48,6 +66,12 @@ export default function RootLayout() {
 			SplashScreen.hideAsync()
 		}
 	}, [loaded])
+
+	useEffect(() => {
+		if (ref) {
+			routingInstrumentation.registerNavigationContainer(ref)
+		}
+	}, [ref])
 
 	if (!loaded) {
 		return null
@@ -119,3 +143,5 @@ export default function RootLayout() {
 		</GluestackUIProvider>
 	)
 }
+
+export default Sentry.wrap(RootLayout)

@@ -23,7 +23,9 @@
     "@gluestack-ui/config": "^1.1.18",
     "@gluestack-ui/themed": "^1.1.26",
     "@hookform/resolvers": "^3.4.2",
+    "@react-native-community/datetimepicker": "8.0.1",
     "@react-navigation/native": "^6.0.2",
+    "@sentry/react-native": "~5.22.0",
     "@shopify/flash-list": "1.6.4",
     "@tanstack/react-query": "^5.40.0",
     "axios": "^1.7.2",
@@ -54,7 +56,7 @@
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.2",
-    "@react-native-community/datetimepicker": "8.0.1"
+    "promise": "8.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
