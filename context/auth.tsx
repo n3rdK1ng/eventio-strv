@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router'
 import { jwtDecode } from 'jwt-decode'
 import {
 	createContext,
@@ -55,6 +56,8 @@ export const decodeToken = async (token: string) => {
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+	const router = useRouter()
+
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [isLoggingOut, setIsLoggingOut] = useState(false)
 	const [user, setUser] = useState<TUser | null>()
@@ -76,6 +79,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			await tokenCache.saveToken(refreshTokenKey, '')
 			setUser(null)
 			setIsLoaded(true)
+
+			router.replace('/sign-in')
 		} finally {
 			setIsLoggingOut(false)
 		}

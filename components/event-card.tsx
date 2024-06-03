@@ -21,7 +21,6 @@ export const EventCard = ({ variant, event, disabled }: TEventCard) => {
 	const router = useRouter()
 
 	if (!user) {
-		router.replace('/sign-in')
 		return null
 	}
 
@@ -62,7 +61,7 @@ export const EventCard = ({ variant, event, disabled }: TEventCard) => {
 							minute: 'numeric',
 						})}
 					</Text>
-					<Text variant="bodyMedium" className="mb-1 text-primary w-48">
+					<Text variant="bodyMedium" className="mb-1 w-48 text-primary">
 						{event.title}
 					</Text>
 					<Text

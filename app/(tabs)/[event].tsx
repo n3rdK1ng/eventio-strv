@@ -42,53 +42,49 @@ export default function EventRoute() {
 	)
 
 	useEffect(() => {
-		if (event && user && event.ownerId === user.id) {
-			navigation.setOptions({
-				headerRight: () => (
-					<View className="mr-6">
-						{Platform.OS === 'ios' ? (
-							<ActionSheetIos
-								title="Event Settings"
-								options={['Edit Event', 'Delete']}
-								onOptionPress={async (index: number) => {
-									if (index === 0) {
+		if (event) {
+			if (user && event.ownerId === user.id) {
+				navigation.setOptions({
+					headerRight: () => (
+						<View className="mr-6">
+							{Platform.OS === 'ios' ? (
+								<ActionSheetIos
+									title="Event Settings"
+									options={['Edit Event', 'Delete']}
+									onOptionPress={async (index: number) => {
+										if (index === 0) {
+											router.push({
+												pathname: 'edit-event',
+												params: { event: event.id },
+											})
+										} else if (index === 1) {
+											await deleteEvent()
+										}
+									}}
+								/>
+							) : (
+								<ActionSheetAndroid
+									title="Event Settings"
+									destructiveText="Delete"
+									editText="Edit event"
+									editFunction={() =>
 										router.push({
 											pathname: 'edit-event',
 											params: { event: event.id },
 										})
-									} else if (index === 1) {
-										await deleteEvent()
 									}
-								}}
-							/>
-						) : (
-							<ActionSheetAndroid
-								title="Event Settings"
-								destructiveText="Delete"
-								editText="Edit event"
-								editFunction={() =>
-									router.push({
-										pathname: 'edit-event',
-										params: { event: event.id },
-									})
-								}
-								destructiveFunction={async () => await deleteEvent()}
-							/>
-						)}
-					</View>
-				),
-			})
+									destructiveFunction={async () => await deleteEvent()}
+								/>
+							)}
+						</View>
+					),
+				})
+			}
+		} else {
+			router.replace('dashboard')
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [navigation, event, user, router])
-
-	useEffect(() => {
-		if (!event) {
-			router.replace('/dashboard')
-		} else if (!user) {
-			router.replace('/sign-in')
-		}
-	}, [event, user, router])
 
 	if (!event || !user) {
 		return null

@@ -73,6 +73,8 @@ export default function EditEventRoute() {
 					</TouchableOpacity>
 				),
 			})
+		} else {
+			router.replace('dashboard')
 		}
 	}, [navigation, event, router])
 
@@ -91,11 +93,6 @@ export default function EditEventRoute() {
 			capacity: event?.capacity.toString(),
 		},
 	})
-
-	if (!event) {
-		router.replace('dashboard')
-		return null
-	}
 
 	const onSubmit = async (formData: TEventSchema) => {
 		const { isInFuture, dateTime } = isEventInFuture(
@@ -140,6 +137,10 @@ export default function EditEventRoute() {
 				})
 			})
 		}
+	}
+
+	if (!event) {
+		return null
 	}
 
 	return (

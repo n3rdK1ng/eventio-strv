@@ -88,7 +88,6 @@ export default function TabLayout() {
 											Alert.alert('Missing design and API endpoint 😿')
 										} else if (index === 1) {
 											destroySession()
-											router.replace('/sign-in')
 										}
 									}}
 								/>
@@ -102,7 +101,6 @@ export default function TabLayout() {
 									}
 									destructiveFunction={() => {
 										destroySession()
-										router.replace('/sign-in')
 									}}
 								/>
 							)}
