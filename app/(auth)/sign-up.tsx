@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from 'axios'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -26,6 +25,8 @@ const schema = z.object({
 	password: z.string().min(6),
 })
 
+type TSchema = z.infer<typeof schema>
+
 export default function SignUpRoute() {
 	const { setSession } = useAuthContext()
 	const router = useRouter()
@@ -33,7 +34,8 @@ export default function SignUpRoute() {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<typeof schema._type>({
+		setError,
+	} = useForm<TSchema>({
 		resolver: zodResolver(schema),
 		defaultValues: {
 			email: '',
@@ -44,7 +46,7 @@ export default function SignUpRoute() {
 	})
 	const [loading, setLoading] = useState(false)
 
-	const onSubmit = async (formData: typeof schema._type) => {
+	const onSubmit = async (formData: TSchema) => {
 		setLoading(true)
 
 		try {
@@ -54,7 +56,7 @@ export default function SignUpRoute() {
 				throw Error('An unexpected error occurred')
 			}
 
-			// Login after successful sign-up
+			// login after successful sign-up
 			const loginResponse = await api.post('auth/native', formData)
 
 			await setSession(
@@ -64,13 +66,18 @@ export default function SignUpRoute() {
 			)
 
 			router.replace('/dashboard')
-		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				console.error(error)
-				throw Error('An unexpected error occurred: ' + error.message)
-			} else {
-				throw error
-			}
+		} catch {
+			const fields = ['email', 'firstName', 'lastName', 'password'] as const
+			fields.forEach((field, index) => {
+				setError(field, {
+					message:
+						index === fields.length - 1
+							? 'Unable to create an account, please try again'
+							: ' ',
+				})
+			})
+		} finally {
+			setLoading(false)
 		}
 	}
 

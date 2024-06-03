@@ -24,6 +24,8 @@ const schema = z.object({
 	password: z.string().min(6),
 })
 
+type TSchema = z.infer<typeof schema>
+
 export default function SignInRoute() {
 	const { setSession } = useAuthContext()
 	const router = useRouter()
@@ -32,7 +34,7 @@ export default function SignInRoute() {
 		handleSubmit,
 		formState: { errors },
 		setError,
-	} = useForm<typeof schema._type>({
+	} = useForm<TSchema>({
 		resolver: zodResolver(schema),
 		defaultValues: {
 			email: '',
@@ -41,7 +43,29 @@ export default function SignInRoute() {
 	})
 	const [loading, setLoading] = useState(false)
 
-	const onSubmit = async (formData: typeof schema._type) => {
+	const handleErrors = (error: unknown) => {
+		setError('email', { message: ' ' })
+
+		const defaultMessage = { message: 'An unexpected error occurred' }
+
+		if (!axios.isAxiosError(error)) {
+			setError('password', defaultMessage)
+			return
+		}
+
+		switch (error.response?.status) {
+			case 404:
+			case 401:
+				setError('password', {
+					message: 'Oops! That email and password combination is not valid.',
+				})
+				break
+			default:
+				setError('password', defaultMessage)
+		}
+	}
+
+	const onSubmit = async (formData: TSchema) => {
 		setLoading(true)
 
 		try {
@@ -55,27 +79,9 @@ export default function SignInRoute() {
 
 			router.replace('/dashboard')
 		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				switch (error.response?.status) {
-					case 404:
-					case 401:
-						setError('email', {
-							message: ' ',
-						})
-						setError('password', {
-							message:
-								'Oops! That email and password combination is not valid.',
-						})
-						setLoading(false)
-						break
-
-					default:
-						console.error(error)
-						throw Error('An unexpected error occurred: ' + error.message)
-				}
-			} else {
-				throw error
-			}
+			handleErrors(error)
+		} finally {
+			setLoading(false)
 		}
 	}
 
